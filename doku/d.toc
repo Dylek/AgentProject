@@ -1,0 +1,3 @@
+\select@language {polish}
+\contentsline {section}{\numberline {1}Sudoku}{3}
+\contentsline {subsection}{\numberline {1.1}Co to Sudoku}{3}

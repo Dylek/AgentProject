@@ -1,0 +1,126 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[polish]{babel}
+\usepackage[MeX]{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{times}
+\usepackage{graphicx,wrapfig}
+%\usepackage{anysize}
+%\usepackage{tikz}
+%\usetikzlibrary{calc,through,backgrounds,positioning}
+\usepackage{anysize}
+\usepackage{float}
+%\usepackage{stmaryrd}
+%\usepackage{amssymb}
+%\usepackage{amsthm}
+%\marginsize{3cm}{3cm}{3cm}{3cm}
+%\usepackage{amsmath}
+%\usepackage{color}
+%\usepackage{listings}
+%\usepackage{enumerate}
+
+\author{Marcin Jędrzejczyk,Paweł Ogorzały}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+\newtheorem{defi}{Definicja}
+\begin{document}
+	% \noindent -  w tym akapicie nie bedzie wciecia
+	% \ indent - to jest aut., ale powoduje ze jest wciecie
+	% \begin{flushleft}, flushright, center - wyrownianie akapitu
+	% \textbf{pogrubiany tekst}
+	% \textit{kursywa} 
+	% 					STRONY 
+	%  http://www.codecogs.com/latex/eqneditor.php 
+	%  http://www.matematyka.pl/latex.htm
+	% 
+	\begin{titlepage}
+	
+	
+		
+		
+		
+		\center % Center everything on the page
+		
+		%----------------------------------------------------------------------------------------
+		%	HEADING SECTIONS
+		%----------------------------------------------------------------------------------------
+		
+		\textsc{\LARGE Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie}\\[1.5cm] % Name of your university/college
+		\textsc{\Large Studio Projektowe \\ Projekt zaliczeniowy}\\[1.5cm]
+		%\textsc{\Large Krak�w}\\[0.5cm] % Major heading such as course name
+		%\textsc{\large }\\[0.5cm] % Minor heading such as course title
+		
+		%----------------------------------------------------------------------------------------
+		%	TITLE SECTION
+		%----------------------------------------------------------------------------------------
+		
+		\HRule \\[0.4cm]
+		{\fontsize{30}{40}\selectfont Gra mobilna Sudoku na telefony z systemem Android}
+		\HRule \\[5.5cm]
+		
+		%----------------------------------------------------------------------------------------
+		%	AUTHOR SECTION
+		%----------------------------------------------------------------------------------------
+		
+		% If you don't want a supervisor, uncomment the two lines below and remove the section above
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large 
+\emph{Autorzy:}\\
+Marcin \textsc{Jędrzejczyk}\\ 
+Paweł \textsc{Ogorzały}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Opiekun:}\\
+ Dr inż. Maciej \textsc{Szymkat}  % Supervisor's Name
+\end{flushright}
+\end{minipage} \\[5cm]
+
+		
+		%----------------------------------------------------------------------------------------
+		%	DATE SECTION
+		%----------------------------------------------------------------------------------------
+		
+		{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+		
+		%----------------------------------------------------------------------------------------
+		%	LOGO SECTION
+		%----------------------------------------------------------------------------------------
+		
+		%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+		
+		%----------------------------------------------------------------------------------------
+		
+		\vfill % Fill the rest of the page with whitespace
+		
+	\end{titlepage}
+	
+	\newpage
+	
+	\tableofcontents
+	\newpage
+	
+	\listoffigures
+	\newpage
+	
+	
+	
+	
+	\section{Sudoku}
+	\subsection{Co to Sudoku}
+W Sudoku gra się na planszy o wymiarach 9x9 podzielonej na mniejsze \"obszary\" o wymiarach 3x3.  Na początku gry niektóre z pól planszy Sudoku są już wypełnione liczbami.  Celem gry jest uzupełnienie pozostałych pól planszy cyframi od 1 do 9 (po jednej cyfrze w każdym polu) przy zachowaniu następujących reguł:
+\begin{itemize}
+\item Każda cyfra może się pojawić tylko raz w każdym wierszu,
+\item Każda cyfra może się pojawić tylko raz w każdej kolumnie,
+\item Każda cyfra może się pojawić tylko raz w każdym obszarze.
+\end{itemize}
+
+	
+	% latex(szybka kompilacja),bibtex,kompilacja,kompilacja
+%\bibliographystyle{plain}% plain/abbrv/alpha
+%\bibliography{bibliografia}%plik .bib
+\end{document}
+
+
