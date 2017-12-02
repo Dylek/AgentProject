@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: dokumentation.aux
+The style file: plain.bst
+I couldn't open database file bibliografia.bib
+---line 8 of file dokumentation.aux
+ : \bibdata{bibliografia
+ :                      }
+I'm skipping whatever remains of this command
+I found no \citation commands---while reading file dokumentation.aux
+I found no database files---while reading file dokumentation.aux
+(There were 3 error messages)

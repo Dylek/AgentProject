@@ -1,0 +1,29 @@
+@article{WHITE,
+	title = "Modeling epidemics using cellular automata",
+	journal = "Applied Mathematics and Computation",
+	volume = "186",
+	number = "1",
+	pages = "193 - 202",
+	year = "2007",
+	issn = "0096-3003",
+	doi = "https://doi.org/10.1016/j.amc.2006.06.126",
+	url = "http://www.sciencedirect.com/science/article/pii/S0096300306009295",
+	author = "S. Hoya White and A. Martín del Rey and G. Rodríguez Sánchez",
+	keywords = "Cellular automata, Epidemic spreading, Mathematical modeling, Rectangular lattices, SIR model"
+}
+
+@unknown{cisse,
+author = {Cissé, Baki and El Yacoubi, Samira and Tridane, Abdessamad},
+year = {2013},
+month = {06},
+pages = {},
+title = {Impact of Neighborhood Structure on Epidemic Spreading by Means of Cellular Automata Approach},
+volume = {18},
+booktitle = {Procedia Computer Science}
+}
+
+@online{epidemic,
+title = {epidemic},
+url = {https://en.oxforddictionaries.com/definition/epidemic},
+OPTurldate = {02.12.2017},
+}
