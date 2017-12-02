@@ -13,12 +13,12 @@
 		    \end{LARGE}
 	    	\begin{Large}
 	    		Author: Marcin Jędrzejczyk \\
-	    		Supervisor: Dr hab. inż. Jarosław Wąs
+	    		Supervisor: Dr hab. inż. Jarosław Wąs\\[3cm]
 	    	\end{Large}
 	\end{center}
 
 	\section{Introduction}
-	When disease spread quickly and affect many people we can call it epidemic. Some of the most unfamus epidemic thorough history are XIV century Black Death and Spanish  Flu pandemic in 1918. Infected person is not significant, however when a great number of people is sick it creates serious health and economic threats. Goal of simulating spread of epidemic is to better understand how epidemic behave in time, how quick it spreads depending on many factors.\cite{white} It can also be used to picture how vaccination affect disease spreading and confirms that herd immunity is important.
+	When disease spread quickly and affect many people we can call it epidemic. Some of the most unfamus epidemic thorough history are XIV century Black Death and Spanish  Flu pandemic in 1918. Infected person is not significant, however when a great number of people is sick it creates serious health and economic threats. Goal of simulating spread of epidemic is to better understand how epidemic behave in time, how quickly it spreads depending on many factors.\cite{WHITE} It can also be used to picture how vaccination affect disease spreading and confirms that herd immunity is important.
 	\section{Literature models}
 	Main models for epidemic in cellular automata are as follows:\\
 	\begin{itemize}
@@ -34,9 +34,13 @@
 		\item E - exposed
 		\item R - recovered
 	\end{itemize}
-	The model we choose should represent a disease we want to model. SIR model assume that in recovery status individual get full immunity and on the other hand in SIS person can get sick even after successful treatment.\cite{WHITE}\\
+	The choosen model should represent a disease we want to model. SIR model assume that in recovery status individual get full immunity and on the other hand in SIS person can get sick even after successful treatment.\cite{WHITE}\\
 	
-	The neighborhood we choose can greatly affect dynamics of disease spreading as stated in \cite{cisse}. However more than type of neighborhood the type of connection between cells is important. There can be one, two three or none ways of transport. It affects equations and speed of spreading.\cite{WHITE} 
+	The neighborhood we choose can greatly affect dynamics of disease spreading as stated in \cite{cisse}. However more than type of neighborhood the type of connection between cells is important. There can be one, two three or none ways of transport. It affects equations and speed of spreading.\cite{WHITE} \\
+	
+	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\
+	
+	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered)
 
 \section{Project goals}
 
