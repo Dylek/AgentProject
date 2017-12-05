@@ -14,7 +14,7 @@ public class Cell {
 
     public Paint getColor() {
         switch (this.type){
-            case 0: return Color.RED;
+            case 0: return Color.GRAY;
             case 1: return Color.BLACK;
         }
         return Color.WHITE;

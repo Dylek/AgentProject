@@ -13,7 +13,7 @@ public class BoardCA {
         board=new Cell[size][size];
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
-                board[x][y]=new Cell(1);
+                board[x][y]=new Cell(0);
             }
         }
     }

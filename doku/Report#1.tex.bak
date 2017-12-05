@@ -3,17 +3,18 @@
 \usepackage[MeX]{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-
-
+\usepackage{graphicx}
+\usepackage{float}
 \begin{document}
 \renewcommand\refname{Bibliography}
+\renewcommand{\figurename}{Figure}
 	\begin{center}
 			\begin{LARGE}
 			Spread of epidemic\\[1cm]
 		    \end{LARGE}
 	    	\begin{Large}
 	    		Author: Marcin Jędrzejczyk \\
-	    		Supervisor: Dr hab. inż. Jarosław Wąs\\[3cm]
+	    		Supervisor: Dr hab. inż. Jarosław Wąs\\[1cm]
 	    	\end{Large}
 	\end{center}
 
@@ -40,13 +41,18 @@
 	
 	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\
 	
-	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered)
+	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.
 
 \section{Project goals}
 
-The aim of this project is to implement in JAVA a cellular automata model of epidemic spread. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in board(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
+The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in board(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
 
+\begin{figure}[H]
+\includegraphics[scale=0.9]{GUI1.PNG} 
+\caption{Prototype of user interface}
+\end{figure}
 
+	
 	\bibliographystyle{plain}% plain/abbrv/alpha
 	\bibliography{mybib}
 	
