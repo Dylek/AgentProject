@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,9 +25,14 @@
                   <Pane prefHeight="546.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="184.0" text="Model parameters" />
-                        <ChoiceBox layoutX="14.0" layoutY="57.0" prefWidth="150.0" />
-                        <Label layoutX="14.0" layoutY="120.0" text="Label" />
-                        <Button fx:id="initButton" layoutX="42.0" layoutY="507.0" mnemonicParsing="false" onAction="#initClicked" text="INIT" />
+                        <ChoiceBox fx:id="modelChooser" layoutX="19.0" layoutY="78.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Button fx:id="initButton" layoutX="2.0" layoutY="507.0" mnemonicParsing="false" onAction="#initClicked" prefHeight="25.0" prefWidth="184.0" text="INIT" />
+                        <Label layoutX="19.0" layoutY="61.0" prefHeight="17.0" prefWidth="150.0" text="Model" />
+                        <Label layoutX="19.0" layoutY="113.0" text="Neighborhood" />
+                        <ChoiceBox fx:id="neighborhood" layoutX="19.0" layoutY="130.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label layoutX="19.0" layoutY="168.0" text="Size" />
+                        <Spinner fx:id="sizeSpinner" layoutX="68.0" layoutY="164.0" prefHeight="25.0" prefWidth="101.0" />
+                        <VBox fx:id="parametersSpace" layoutX="18.0" layoutY="204.0" prefHeight="292.0" prefWidth="150.0" />
                      </children>
                   </Pane>
                   <TabPane prefHeight="546.0" prefWidth="436.0" tabClosingPolicy="UNAVAILABLE">

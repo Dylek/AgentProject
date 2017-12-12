@@ -1,3 +1,7 @@
+
+
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -16,6 +20,50 @@ public class BoardCA {
                 board[x][y]=new Cell(0);
             }
         }
+    }
+
+    private ArrayList<Integer> getIndexesRange(int i,int size,int end){
+        ArrayList<Integer> result=new ArrayList<>();
+        for(int k=i-size;k<=i+size;k++){
+            if(k>=0 && k<end){
+                result.add(k);
+            }
+        }
+        return result;
+    }
+
+    public void setNeigbourhood(Neighborhood n,int size){
+        switch (n){
+            case Moore:
+                for(int x=0;x<board.length;x++){
+                    for(int y=0;y<board.length;y++){
+                        for(int tempX:getIndexesRange(x,size,board.length)){
+                            for(int tempY:getIndexesRange(y,size,board.length)){
+                               if(tempY==y && tempX==x)continue;
+                                if(Math.abs(tempX-x)<=size && Math.abs(tempY-y)<=size){
+                                    board[x][y].neighboors.add(board[tempX][tempY]);
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
+            case VonNeman:
+                for(int x=0;x<board.length;x++){
+                    for(int y=0;y<board.length;y++){
+                        for(int tempX:getIndexesRange(x,size,board.length)){
+                            for(int tempY:getIndexesRange(y,size,board.length)){
+                                if(tempY==y && tempX==x)continue;
+                                if(Math.abs(tempX-x) + Math.abs(tempY-y)<=size){
+                                    board[x][y].neighboors.add(board[tempX][tempY]);
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
+        }
+        System.out.println("Neoghboorhood has been set");
     }
 
 }
