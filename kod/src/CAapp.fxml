@@ -31,7 +31,7 @@
                         <Label layoutX="19.0" layoutY="113.0" text="Neighborhood" />
                         <ChoiceBox fx:id="neighborhood" layoutX="19.0" layoutY="130.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="19.0" layoutY="168.0" text="Size" />
-                        <Spinner fx:id="sizeSpinner" layoutX="68.0" layoutY="164.0" prefHeight="25.0" prefWidth="101.0" />
+                        <Spinner fx:id="sizeSpinner" editable="true" layoutX="68.0" layoutY="164.0" prefHeight="25.0" prefWidth="101.0" />
                         <VBox fx:id="parametersSpace" layoutX="18.0" layoutY="204.0" prefHeight="292.0" prefWidth="150.0" />
                      </children>
                   </Pane>
@@ -41,12 +41,14 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Canvas fx:id="boardToPaint" height="428.0" layoutX="14.0" layoutY="14.0" width="408.0" />
-                                    <Button fx:id="clearButton" layoutX="31.0" layoutY="478.0" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
-                                    <Button fx:id="startButton" layoutX="94.0" layoutY="478.0" mnemonicParsing="false" onAction="#startClicked" text="Start" />
-                                    <Button fx:id="stopButton" layoutX="165.0" layoutY="478.0" mnemonicParsing="false" onAction="#stopClicked" text="Stop" />
-                                    <Slider fx:id="speedSlider" layoutX="238.0" layoutY="484.0" />
-                                    <Label layoutX="262.0" layoutY="461.0" text="Simulation Speed" />
+                                    <Canvas fx:id="boardToPaint" height="428.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#mouseClickedCanvas" onMouseDragged="#mouseClickedCanvas" width="408.0" />
+                                    <Button fx:id="clearButton" layoutX="14.0" layoutY="478.0" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
+                                    <Button fx:id="startButton" layoutX="67.0" layoutY="478.0" mnemonicParsing="false" onAction="#startClicked" text="Start" />
+                                    <Button fx:id="stopButton" layoutX="117.0" layoutY="478.0" mnemonicParsing="false" onAction="#stopClicked" text="Stop" />
+                                    <Slider fx:id="speedSlider" layoutX="176.0" layoutY="484.0" prefHeight="14.0" prefWidth="131.0" />
+                                    <Label layoutX="195.0" layoutY="461.0" text="Simulation Speed" />
+                                    <Spinner fx:id="typeChange" layoutX="361.0" layoutY="478.0" prefHeight="25.0" prefWidth="61.0" />
+                                    <Label layoutX="364.0" layoutY="453.0" text="Cell Type" />
                                  </children>
                               </AnchorPane>
                         </content>

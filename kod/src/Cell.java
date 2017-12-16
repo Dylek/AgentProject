@@ -19,7 +19,20 @@ public class Cell {
         switch (this.type){
             case 0: return Color.GRAY;
             case 1: return Color.BLACK;
+            case 2: return Color.GREEN;
+            case 3: return Color.RED;
+            case 4: return Color.BLUE;
+            case 5: return Color.YELLOW;
         }
         return Color.WHITE;
+    }
+
+    public void calculateNewState(){
+
+    }
+
+    public void clear(){
+        this.type=0;
+        //rest of parameters
     }
 }

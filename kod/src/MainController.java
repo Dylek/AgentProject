@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -33,6 +34,8 @@ public class MainController {
 
     @FXML // fx:id="sizeSpinner"
     private Spinner<Integer> sizeSpinner; // Value injected by FXMLLoader
+    @FXML
+    private Spinner<Integer> typeChange;
     @FXML
     private VBox parametersSpace;
     @FXML // fx:id="initButton"
@@ -69,8 +72,7 @@ public class MainController {
     private int laneThickness=2;
     private HashMap<String,Double> parameters;
 
-    private DecimalFormat format ;
-    TextFormatter textFormatter;
+
 
 
 
@@ -86,11 +88,12 @@ public class MainController {
         assert startButton != null : "fx:id=\"startButton\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert stopButton != null : "fx:id=\"stopButton\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert speedSlider != null : "fx:id=\"speedSlider\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert typeChange != null : "fx:id=\"typeChange\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert chart1 != null : "fx:id=\"chart1\" was not injected: check your FXML file 'CAapp.fxml'.";
 
 
         parameters=new HashMap<>();
-        boardToPaint.getGraphicsContext2D().setFill(Color.GRAY);
+        prepareCanvas();
         speedSlider.setMin(0);
         speedSlider.setMax(2);
         speedSlider.setMajorTickUnit(0.25f);
@@ -109,6 +112,8 @@ public class MainController {
         sizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,4,2));
 
 
+        //
+        typeChange.setDisable(true);
 
     }
 
@@ -117,19 +122,23 @@ public class MainController {
         parameters.clear();
         switch (model){
             case GAMEOFLIFE:
-                parameters.put("G",0.0);
-                parameters.put("3",0.0);
-                parameters.put("2",0.0);
+                parameters.put("Live",0.0);
+                parameters.put("DIe",0.0);
                 break;
             case SIR:
-                parameters.put("SIR",0.0);
+                parameters.put("S",0.0);
+                parameters.put("I",0.0);
+                parameters.put("R",0.0);
                 break;
             case SEIR:
-                parameters.put("SEIR",0.0);
+                parameters.put("S",0.0);
+                parameters.put("E",0.0);
+                parameters.put("I",0.0);
+                parameters.put("R",0.0);
                 break;
             case SIS:
-                parameters.put("SIS",0.0);
-                parameters.put("S2",0.0);
+                parameters.put("S",0.0);
+                parameters.put("I",0.0);
                 break;
         }
         paintParameters();
@@ -171,8 +180,15 @@ public class MainController {
     }
     @FXML
     void clearClicked(ActionEvent event) {
-        //TODO get ready for again
+        prepareCanvas();
+        disableParameters(true);
     }
+
+    private void prepareCanvas() {
+        boardToPaint.getGraphicsContext2D().setFill(Color.WHITE);
+        boardToPaint.getGraphicsContext2D().fillRect(0,0,boardToPaint.getWidth(),boardToPaint.getHeight());
+    }
+
     @FXML
     void stopClicked(ActionEvent event) {
         //TODO stop/resume feature
@@ -181,34 +197,58 @@ public class MainController {
     @FXML
     void initClicked(ActionEvent event) {
         startSim();
-        disableParameters();
+        disableParameters(false);
     }
 
     void startSim(){
         board=new BoardCA(100,modelChooser.getValue());
-        System.out.println("Simulation initialised for model: "+modelChooser.getValue());
+        board.setDrawingProperties(boardToPaint,cellSize,laneThickness);
 
+        initTypeChange();
         paintBoard();
         board.setNeigbourhood(neighborhood.getValue(),sizeSpinner.getValue());
 
+        System.out.println("Simulation initialised for model: "+modelChooser.getValue());
+    }
 
+    void initTypeChange(){
+        int maxTypes=0;
+        switch (modelChooser.getValue()){
+            case GAMEOFLIFE: maxTypes=1;break; //0-dead cell 1-alive cell
+            case SIR: maxTypes=3; break; //0-empty,1-S,2-I,3-R
+            case SIS: maxTypes=2; break; //0-empty,1-S,2-I
+            case SEIR: maxTypes=4; break; //0-empty,1-S,2-E,3-I,4-R
+        }
+
+        typeChange.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxTypes,0));
     }
 
     private void paintBoard(){
-        for( int x=0;x< board.getSize();x++){
-            for(int y=0; y< board.getSize();y++){
-                boardToPaint.getGraphicsContext2D().setFill(board.board[x][y].getColor());
-                boardToPaint.getGraphicsContext2D().fillRect(x*cellSize,y*cellSize,cellSize-laneThickness,cellSize-laneThickness);
-            }
+        board.paintBoard();
+    }
+
+    private void disableParameters(boolean status){
+        initButton.setDisable(!status);
+        modelChooser.setDisable(!status);
+        parametersSpace.setDisable(!status);
+        neighborhood.setDisable(!status);
+        sizeSpinner.setDisable(!status);
+        typeChange.setDisable(status);
+    }
+
+    @FXML
+    void mouseClickedCanvas(MouseEvent event) {
+        int x = (int) event.getX()/cellSize;
+        int y = (int) event.getY()/cellSize;
+
+        if((x<board.getSize()) && (x>0) && (y>0) && (y<board.getSize())){
+            board.board[x][y].type=typeChange.getValue();
+
+            paintBoard();
         }
     }
 
-    private void disableParameters(){
-        initButton.setDisable(true);
-        modelChooser.setDisable(true);
-        parametersSpace.setDisable(true);
-        neighborhood.setDisable(true);
-        sizeSpinner.setEditable(false);
-    }
+    private void paintCharts(){
 
+    }
 }

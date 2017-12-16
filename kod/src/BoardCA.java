@@ -1,12 +1,16 @@
 
 
+import javafx.scene.canvas.Canvas;
+
 import java.util.ArrayList;
 
 /**
  *
  */
 public class BoardCA {
-
+    private Canvas boardToPaint;
+    private int cellSize =10;
+    private int laneThickness=2;
     public Cell[][] board;
     private int size;
     public int getSize(){
@@ -66,4 +70,27 @@ public class BoardCA {
         System.out.println("Neoghboorhood has been set");
     }
 
+
+    public void iteration(){
+
+    }
+
+    public void clear(){
+
+    }
+
+    public void paintBoard(){
+        for( int x=0;x< size;x++){
+            for(int y=0; y< size;y++){
+                boardToPaint.getGraphicsContext2D().setFill(this.board[x][y].getColor());
+                boardToPaint.getGraphicsContext2D().fillRect(x*cellSize,y*cellSize,cellSize-laneThickness,cellSize-laneThickness);
+            }
+        }
+    }
+
+    public void setDrawingProperties(Canvas boardToPaint, int cellSize, int laneThickness) {
+        this.boardToPaint=boardToPaint;
+        this.cellSize=cellSize;
+        this.laneThickness=laneThickness;
+    }
 }
