@@ -23,7 +23,7 @@ public class BoardCA {
         board=new Cell[size][size];
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
-                board[x][y]=new Cell(0);
+                board[x][y]= CellFactory.getCell(model);
             }
         }
     }
@@ -47,7 +47,7 @@ public class BoardCA {
                             for(int tempY:getIndexesRange(y,size,board.length)){
                                if(tempY==y && tempX==x)continue;
                                 if(Math.abs(tempX-x)<=size && Math.abs(tempY-y)<=size){
-                                    board[x][y].neighboors.add(board[tempX][tempY]);
+                                    board[x][y].addNeigbour(board[tempX][tempY]);
                                 }
                             }
                         }
@@ -61,7 +61,7 @@ public class BoardCA {
                             for(int tempY:getIndexesRange(y,size,board.length)){
                                 if(tempY==y && tempX==x)continue;
                                 if(Math.abs(tempX-x) + Math.abs(tempY-y)<=size){
-                                    board[x][y].neighboors.add(board[tempX][tempY]);
+                                    board[x][y].addNeigbour(board[tempX][tempY]);
                                 }
                             }
                         }

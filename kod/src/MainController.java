@@ -101,7 +101,7 @@ public class MainController {
         int y = (int) event.getY()/cellSize;
 
         if((x<board.getSize()) && (x>0) && (y>0) && (y<board.getSize())){
-            board.board[x][y].type=typeChange.getValue();
+            board.board[x][y].setType(typeChange.getValue());
 
             paintBoard();
         }
