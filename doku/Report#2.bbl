@@ -1,0 +1,145 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{cisse}{misc}{}
+    \name{author}{3}{}{%
+      {{hash=CB}{%
+         family={Cissé},
+         familyi={C\bibinitperiod},
+         given={Baki},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=EYS}{%
+         family={El\bibnamedelima Yacoubi},
+         familyi={E\bibinitperiod\bibinitdelim Y\bibinitperiod},
+         given={Samira},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=TA}{%
+         family={Tridane},
+         familyi={T\bibinitperiod},
+         given={Abdessamad},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CBEYSTA1}
+    \strng{fullhash}{CBEYSTA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Procedia Computer Science}
+    \field{title}{Impact of Neighborhood Structure on Epidemic Spreading by
+  Means of Cellular Automata Approach}
+    \field{volume}{18}
+    \field{month}{06}
+    \field{year}{2013}
+  \endentry
+
+  \entry{moore}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WEW}{%
+         family={Weisstein},
+         familyi={W\bibinitperiod},
+         given={Eric\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WEW1}
+    \strng{fullhash}{WEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Moore Neighborhood}
+    \verb{url}
+    \verb http://mathworld.wolfram.com/MooreNeighborhood.html
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{vonnewman}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WEW}{%
+         family={Weisstein},
+         familyi={W\bibinitperiod},
+         given={Eric\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WEW1}
+    \strng{fullhash}{WEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{von Neumann Neighborhood}
+    \verb{url}
+    \verb http://mathworld.wolfram.com/vonNeumannNeighborhood.html
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{WHITE}{article}{}
+    \name{author}{3}{}{%
+      {{hash=WSH}{%
+         family={White},
+         familyi={W\bibinitperiod},
+         given={S.\bibnamedelima Hoya},
+         giveni={S\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=dRAM}{%
+         prefix={del},
+         prefixi={d\bibinitperiod},
+         family={Rey},
+         familyi={R\bibinitperiod},
+         given={A.\bibnamedelima Martín},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SGR}{%
+         family={Sánchez},
+         familyi={S\bibinitperiod},
+         given={G.\bibnamedelima Rodríguez},
+         giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \keyw{Cellular automata, Epidemic spreading, Mathematical modeling,
+  Rectangular lattices, SIR model}
+    \strng{namehash}{WSHRAMdSGR1}
+    \strng{fullhash}{WSHRAMdSGR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.amc.2006.06.126
+    \endverb
+    \field{issn}{0096-3003}
+    \field{number}{1}
+    \field{pages}{193 \bibrangedash  202}
+    \field{title}{Modeling epidemics using cellular automata}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0096300306009295
+    \endverb
+    \field{volume}{186}
+    \field{journaltitle}{Applied Mathematics and Computation}
+    \field{year}{2007}
+  \endentry
+\endsortlist
+\endinput

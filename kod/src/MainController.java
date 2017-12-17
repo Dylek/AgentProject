@@ -87,8 +87,10 @@ public class MainController {
 
     @FXML
     void clearClicked(ActionEvent event) {
-        timeline.stop();
-        timeline=null;
+        if(timeline!=null){
+            timeline.stop();
+            timeline=null;
+        }
         prepareCanvas();
         disableParameters(true);
     }
