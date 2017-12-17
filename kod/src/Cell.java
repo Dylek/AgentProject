@@ -2,6 +2,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -11,7 +12,14 @@ public class Cell {
     public int type=0;
     public ArrayList<Cell> neighboors=new ArrayList<Cell>();
 
+    private HashMap<String,Double> parameters;
+    private int nextState;
+    private HashMap<String, Double> nextStateParameters;
+
     public Cell(int type){
+        parameters=new HashMap<>();
+        nextStateParameters=new HashMap<>();
+        nextState=0;
         this.type=type;
     }
 
@@ -28,11 +36,20 @@ public class Cell {
     }
 
     public void calculateNewState(){
+        //callculate new state
+        //System.out.println("calculating new state");
 
+    }
+    public void changeState(){
+        //change state
+
+        this.type=nextState;
+        parameters.clear();
+        parameters.putAll(nextStateParameters);
     }
 
     public void clear(){
         this.type=0;
-        //rest of parameters
+        //rest of parameters //hashmap?
     }
 }

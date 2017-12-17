@@ -3,6 +3,8 @@
 import javafx.scene.canvas.Canvas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Function;
 
 /**
  *
@@ -72,7 +74,19 @@ public class BoardCA {
 
 
     public void iteration(){
-
+        System.out.println("iteratrion new");
+        for(Cell[] arr:board){
+            for(Cell cell:arr){
+                cell.calculateNewState();
+            }
+        }
+        for(Cell[] arr:board){
+            for(Cell cell:arr){
+                cell.changeState();
+            }
+        }
+        paintBoard();
+      //  Arrays.stream(board).map(x-> Arrays.stream(x).map(y->y.calculateNewState()));
     }
 
     public void clear(){
