@@ -109,7 +109,7 @@ public class MainController {
 
     @FXML
     void stopClicked(ActionEvent event) {
-        //TODO stop/resume feature
+
         timeline.stop();
 
     }

@@ -46,8 +46,23 @@
 	
 	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\
 	
-	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.
+	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.\\
+	
+	
+	
+	%TODO poprawić
 
+	How and when cell change their status? This questions are answered, by mathematical equations with proper assumption about model.\\
+	When we assume that population count is constant we can use KedleMadroc model\cite{} (hovewer it is regarded as simplified).\\
+	
+	There are more mathematical models in literature:\\
+	SIR\cite{}\\
+	SIS\cite{}\\
+	
+
+
+	
+%TODO może coś tu rozwinąć itp
 \section{Project goals}
 
 The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in board(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
@@ -81,7 +96,25 @@ To not hardcode adding of neighbours to cell, following equations found on wolfr
 \end{itemize}
 
 \subsection{Epidemic models}
-\section{Finished GUI}
+%TODO poprawić
+Spread of disease between cells was modelled, by implementing transition equation proposed by\cite{WHITE}. It was decided to use it, because it takes into consideration:\\
+\begin{itemize}
+\item vaccination
+\item number of means of transportation
+\item each cell is small population not a individual
+\end{itemize}
+
+\subsection{Code}
+Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of if and switches Factory pattern was used for creating Cell object for chosen model.
+\begin{figure}
+\includegraphics[scale=0.7]{klasy.PNG} 
+\caption{Class diagram}
+\end{figure}
+
+
+
+%TODO które zaimplementowałem, może jakiś listning kodu
+\subsection{Finished GUI}
 The user interface was created with JavaFX and SceneBuilder.\\
 To start simulation:
 \begin{itemize}
@@ -105,7 +138,8 @@ To start simulation:
 \includegraphics[scale=0.7]{GUI3.PNG} 
 \caption{GUI ready to start simulation}
 \end{figure}
-
+\section{Summary}
+%TODO wnioski
 %\bibliographystyle{plain}% plain/abbrv/alpha
 %\bibliography{mybib}
 \printbibliography
