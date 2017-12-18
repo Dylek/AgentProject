@@ -10,6 +10,28 @@
 
 \addbibresource{mybib.bib}
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  language=Java,
+  numbers=left, 
+  showspaces=false,
+  numberstyle=\tiny\color{mygray},
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{mygreen}, 
+  frame=single,	 
+  keywordstyle=\color{blue},
+  basicstyle=\ttfamily,
+  title=\lstname 
+}
+
 \begin{document}
 \renewcommand\refname{Bibliography}
 \renewcommand{\figurename}{Figure}
@@ -46,9 +68,8 @@
 
 		During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.\\	
 	
-	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\ Such approach have two major benefits: ``  first it reduces the total number of cells and hence reduces computation time; secondly it provides generality.``\cite{shih}
+	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}   Such approach have two major benefits: ``  first it reduces the total number of cells and hence reduces computation time; secondly it provides generality.``\cite{shih}\\
 	
-
 
 	How and when cell change their status? This questions are answered, by mathematical equations with proper assumption about model.\\
 	When we assume: that population size is constant, there is no incubation period and cycle where one is contagious is the same as disease.  We can use The Kermack-McKendrick model\cite{report} \\
@@ -85,14 +106,35 @@
 	\begin{equation}
 	R^t_{ij}=R^{t-1}_{ij}+\epsilon\cdot I^{t-1}_{ij}+\omega\cdot S^{t-1}_{ij}
 \end{equation}	
+	where:
+		\begin{equation}
+	\mu^{(i,j)}_{\alpha\beta}= c^{(i,j)}_{\alpha\beta}\cdot m^{(i,j)}_{\alpha\beta} \cdot v
+\end{equation}
+	\begin{itemize}
+	\item $(i,j)$ - cell with coordinates (i,j) in lattice
+	\item $t$ - iteration
+	\item $v$ - virulence of the epidemic  $v \in \left[0,1\right]$
+	\item $\omega$ -  vaccination rate $\omega \in \left[0,1\right]$
+	\item $\$
+	\item $N_{i,j}$ - population size in cell (i,j)
+	\item $\epsilon$ - recovery rate $\epsilon \in \left[0,1\right]$
+	\item $V$ -neighbourhood of size n is defined as the set of coordinates $(\alpha,\beta): N={(\alpha_k,\beta_k),1\leq k \leq n}$
+	\item $V^{*}$ - $ V^{*}= V-{(0,0)} $ 
+	\item $S^{t}_{i,j}$ - number of susceptible individuals in cell (i,j) in time $t$
+	\item $I^{t}_{i,j}$ - number of infected individuals in cell (i,j) in time $t$
+	\item $E^{t}_{i,j}$ - number of exposed individuals in cell (i,j) in time $t$
+	\item $R^{t}_{i,j}$ - number of recovered individuals in cell (i,j) in time $t$
+	\end{itemize}	
 	
 	
-	In article \cite{cisse} equations for SEIR model were presented: 
+	
+	
+	In article \cite{cisse} equations for SEIR model were presented( state of cell (i,j) is identified by 4-tuple($S^t_{ij},I^t_{ij},E^t_{ij},R^t_{ij} $)): 
 			\begin{equation}
 	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
 \end{equation}	
 	\begin{equation}
-	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
+	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\left(\alpha,\beta\right)\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
 	\end{equation}		
 
 \begin{equation}
@@ -101,7 +143,20 @@ I^{t+1}_{i,j}=\left(1-\epsilon\right)\cdot I^{t}_{ij}+\sigma\cdot E^t_{ij}
 	\begin{equation}
 	R^{t+1}_{i,j}=R^{t}_{i,j}+\epsilon\cdot I^{t}_{i,j}
 \end{equation}	
-	
+	\begin{itemize}
+	\item $(i,j)$ - cell with coordinates (i,j) in lattice
+	\item $t$ - iteration
+	\item $v$ - virulence of the disease
+	\item $Q_{i,j}$ - population size in cell (i,j)
+	\item $\sigma$ - portion of exposed persons who become infected, $\sigma \in \left[0,1\right]$
+	\item $\epsilon$ - recovery rate $\epsilon \in \left[0,1\right]$
+	\item $N$ -neighbourhood of size n is defined as the set of coordinates $(\alpha,\beta): N={(\alpha_k,\beta_k),1\leq k \leq n}$
+	\item $N^{*}$ - $ N^{*}= N-{(0,0)} $ 
+	\item $S^{t}_{i,j}$ - number of susceptible individuals in cell (i,j) in time $t$
+	\item $I^{t}_{i,j}$ - number of infected individuals in cell (i,j) in time $t$
+	\item $E^{t}_{i,j}$ - number of exposed individuals in cell (i,j) in time $t$
+	\item $R^{t}_{i,j}$ - number of recovered individuals in cell (i,j) in time $t$
+	\end{itemize}
 
 	
 
@@ -120,7 +175,7 @@ Cell can have Von Neman or Moore neighbourhood, it is possible to change it size
 \includegraphics[scale=0.5]{vonnewman.png} 
 \caption{VonNewman neighbourhood}
 \end{figure}
-To not hardcode adding of neighbours to cell, following equations found on wolfram \cite{moore}\cite{vonnewman} were used:\\
+To not hardcode adding of neighbours to cell, following equations found in \cite{moore}\cite{vonnewman} were used:\\
 \begin{equation}
 	N^{M}_{x_0,y_0}=\{ \left(x,y\right): \mid x-x_0 \mid \leq r, \mid y-y_0 \mid \leq r   \}  
 \end{equation}
@@ -138,7 +193,7 @@ To not hardcode adding of neighbours to cell, following equations found on wolfr
 \end{itemize}
 
 \subsection{Epidemic models}
-%TODO poprawić
+
 SIR model was implemented with transition equations proposed by\cite{WHITE}. It was decided to use it, because :\\
 \begin{itemize}
 \item it takes vaccination into account
@@ -148,16 +203,14 @@ SIR model was implemented with transition equations proposed by\cite{WHITE}. It 
 
 %dodać listing kodu calculateNew state dla każdej klasy implementującej cell
 
-%TODO j.procs.2013.05.450 ma równania na S E I R
 
 \subsection{Code}
 Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of ifs and switches Factory pattern was used for creating Cell objects for chosen model.
-%TODO add code listing for cell interface
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[scale=0.7]{klasy.PNG} 
 \caption{Class diagram}
 \end{figure}
-
+\lstinputlisting{Cell.java}
 
 
 %TODO które zaimplementowałem, może jakiś listning kodu

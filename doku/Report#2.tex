@@ -11,13 +11,25 @@
 \addbibresource{mybib.bib}
 
 \usepackage{listings}
-\lstset{language=Java,
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  language=Java,
+  numbers=left, 
   showspaces=false,
+  numberstyle=\tiny\color{mygray},
   showtabs=false,
   breaklines=true,
   showstringspaces=false,
   breakatwhitespace=true,
-  basicstyle=\ttfamily
+  commentstyle=\color{mygreen}, 
+  frame=single,	 
+  keywordstyle=\color{blue},
+  basicstyle=\ttfamily,
+  title=\lstname 
 }
 
 \begin{document}
@@ -56,9 +68,8 @@
 
 		During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.\\	
 	
-	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\ Such approach have two major benefits: ``  first it reduces the total number of cells and hence reduces computation time; secondly it provides generality.``\cite{shih}
+	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}   Such approach have two major benefits: ``  first it reduces the total number of cells and hence reduces computation time; secondly it provides generality.``\cite{shih}\\
 	
-
 
 	How and when cell change their status? This questions are answered, by mathematical equations with proper assumption about model.\\
 	When we assume: that population size is constant, there is no incubation period and cycle where one is contagious is the same as disease.  We can use The Kermack-McKendrick model\cite{report} \\
@@ -84,7 +95,7 @@
 	
 	
 	There is a lot of mathematical models in literature. The following equation focus on models ready to use in CA.\\
-	In \cite{WHITE} there are equations for SIR model :
+	In \cite{WHITE} there are equations for SIR model. Population in each cell is constant $S^{t}_{i,j}\,+\,I^{t}_{i,j}\,+\,R^{t}_{i,j}\,=\,1$, cell (i,j)state is identified, by 3-tuple$(DS^{t}_{i,j},DI^{t}_{i,j},DR^{t}_{i,j})$ Equations looks as follow:
 	
 	\begin{equation}
 	I^t_{ij}=\left(1-\epsilon\right)\cdot I^{t-1}_{ij}+v\cdot S^{t-1}_{ij}\cdot I^{t-1}_{ij}+S^{t-1}_{ij} \cdot \sum\limits_{\alpha,\beta\in V^{*}}\frac{N_{i+\alpha,j+\beta}}{N_{ij}}\cdot \mu^{i,j}_{\alpha\beta}\cdot I^{t-1}_{i+\alpha,j+\beta} 
@@ -95,14 +106,36 @@
 	\begin{equation}
 	R^t_{ij}=R^{t-1}_{ij}+\epsilon\cdot I^{t-1}_{ij}+\omega\cdot S^{t-1}_{ij}
 \end{equation}	
+	where:
+		\begin{equation}
+	\mu^{(i,j)}_{\alpha\beta}= c^{(i,j)}_{\alpha\beta}\cdot m^{(i,j)}_{\alpha\beta} \cdot v
+\end{equation}
+	\begin{itemize}
+	\item $(i,j)$ - cell with coordinates (i,j) in lattice
+	\item $t$ - iteration
+	\item $v$ - virulence of the epidemic  $v \in \left[0,1\right]$
+	\item $\omega$ -  vaccination rate $\omega \in \left[0,1\right]$
+	\item $c^{(i,j)}_{\alpha\beta}$ - connection factor
+	\item $ m^{(i,j)}_{\alpha\beta}$ - movement factor
+	\item $N_{i,j}$ - population size in cell (i,j)
+	\item $\epsilon$ - recovery rate $\epsilon \in \left[0,1\right]$
+	\item $V$ -neighbourhood of size n is defined as the set of coordinates $(\alpha,\beta): N={(\alpha_k,\beta_k),1\leq k \leq n}$
+	\item $V^{*}$ - $ V^{*}= V-{(0,0)} $ 
+	\item $S^{t}_{i,j}$ - number of susceptible individuals in cell (i,j) in time $t$
+	\item $I^{t}_{i,j}$ - number of infected individuals in cell (i,j) in time $t$
+	\item $E^{t}_{i,j}$ - number of exposed individuals in cell (i,j) in time $t$
+	\item $R^{t}_{i,j}$ - number of recovered individuals in cell (i,j) in time $t$
+	\end{itemize}	
 	
 	
-	In article \cite{cisse} equations for SEIR model were presented: 
+	
+	
+	In article \cite{cisse} equations for SEIR model were presented( state of cell (i,j) is identified by 4-tuple($S^t_{ij},I^t_{ij},E^t_{ij},R^t_{ij} $)): 
 			\begin{equation}
-	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
+	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot  \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
 \end{equation}	
 	\begin{equation}
-	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
+	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot  \sum\limits_{\left(\alpha,\beta\right)\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
 	\end{equation}		
 
 \begin{equation}
@@ -111,7 +144,20 @@ I^{t+1}_{i,j}=\left(1-\epsilon\right)\cdot I^{t}_{ij}+\sigma\cdot E^t_{ij}
 	\begin{equation}
 	R^{t+1}_{i,j}=R^{t}_{i,j}+\epsilon\cdot I^{t}_{i,j}
 \end{equation}	
-	
+	\begin{itemize}
+	\item $(i,j)$ - cell with coordinates (i,j) in lattice
+	\item $t$ - iteration
+	\item $v$ - virulence of the disease
+	\item $Q_{i,j}$ - population size in cell (i,j)
+	\item $\sigma$ - portion of exposed persons who become infected, $\sigma \in \left[0,1\right]$
+	\item $\epsilon$ - recovery rate $\epsilon \in \left[0,1\right]$
+	\item $N$ -neighbourhood of size n is defined as the set of coordinates $(\alpha,\beta): N={(\alpha_k,\beta_k),1\leq k \leq n}$
+	\item $N^{*}$ - $ N^{*}= N-{(0,0)} $ 
+	\item $S^{t}_{i,j}$ - number of susceptible individuals in cell (i,j) in time $t$
+	\item $I^{t}_{i,j}$ - number of infected individuals in cell (i,j) in time $t$
+	\item $E^{t}_{i,j}$ - number of exposed individuals in cell (i,j) in time $t$
+	\item $R^{t}_{i,j}$ - number of recovered individuals in cell (i,j) in time $t$
+	\end{itemize}
 
 	
 
@@ -121,7 +167,7 @@ The aim of this project is to implement SIR model of epidemic spread in cellular
 
 \section{Implemented models}
 \subsection{Neighbourhood}
-Cell can have Von Neman or Moore neighbourhood, it is possible to change it size (from 1 to 4).
+Cell can have Von Newman or Moore neighbourhood, it is possible to change it size (from 1 to 4).
 \begin{figure}[H]
 \includegraphics[scale=0.5]{moore.png} 
 \caption{Moore neighbourhood}
@@ -130,7 +176,7 @@ Cell can have Von Neman or Moore neighbourhood, it is possible to change it size
 \includegraphics[scale=0.5]{vonnewman.png} 
 \caption{VonNewman neighbourhood}
 \end{figure}
-To not hardcode adding of neighbours to cell, following equations found on wolfram \cite{moore}\cite{vonnewman} were used:\\
+To not hardcode adding of neighbours to cell, following equations found in \cite{moore}\cite{vonnewman} were used:\\
 \begin{equation}
 	N^{M}_{x_0,y_0}=\{ \left(x,y\right): \mid x-x_0 \mid \leq r, \mid y-y_0 \mid \leq r   \}  
 \end{equation}
@@ -177,7 +223,7 @@ To start simulation:
 \item Choose neighbourhood type and size
 \item Set model parameters
 \item Click INIT button
-\item Change cell types, by mouse clicking(or draging) on lattice (it is possible to choose new type of cell, depends on chosen model)
+\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell, depends on chosen model)
 \item Change speed of simulation on slider(optional, default 1s)
 \item To start click START button
 \item To pause click STOP button(you can resume with START button)
@@ -187,11 +233,11 @@ To start simulation:
 
 \begin{figure}[H]
 \includegraphics[scale=0.7]{GUI2.PNG} 
-\caption{GUI when program start}
+\caption{GUI - program start}
 \end{figure}
 \begin{figure}[H]
 \includegraphics[scale=0.7]{GUI3.PNG} 
-\caption{GUI ready to start simulation}
+\caption{GUI - simulation initialized }
 \end{figure}
 \section{Summary}
 %TODO wnioski
