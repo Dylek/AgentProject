@@ -11,15 +11,48 @@
 	author = "S. Hoya White and A. Martín del Rey and G. Rodríguez Sánchez",
 	keywords = "Cellular automata, Epidemic spreading, Mathematical modeling, Rectangular lattices, SIR model"
 }
-
-@unknown{cisse,
-author = {Cissé, Baki and El Yacoubi, Samira and Tridane, Abdessamad},
-year = {2013},
-month = {06},
+@article{fuentes,
+title = "Cellular automata and epidemiological models with spatial dependence",
+journal = "Physica A: Statistical Mechanics and its Applications",
+volume = "267",
+number = "3",
+pages = "471 - 486",
+year = "1999",
+issn = "0378-4371",
+doi = "https://doi.org/10.1016/S0378-4371(99)00027-8",
+url = "http://www.sciencedirect.com/science/article/pii/S0378437199000278",
+author = "M.A. Fuentes and M.N. Kuperman",
+keywords = "Epidemiology, Cellular automata, Numerical simulations"
+}
+@article{cisse,
+title = "Impact of Neighborhood Structure on Epidemic Spreading by Means of Cellular Automata Approach",
+journal = "Procedia Computer Science",
+volume = "18",
+number = "Supplement C",
+pages = "2603 - 2606",
+year = "2013",
+note = "2013 International Conference on Computational Science",
+issn = "1877-0509",
+doi = "https://doi.org/10.1016/j.procs.2013.05.450",
+url = "http://www.sciencedirect.com/science/article/pii/S1877050913005930",
+author = "B. Cissé and S. El Yacoubi and A. Tridane",
+keywords = "Cellular automata, Epidemics spreading, SEIR, Basic reproduction number, Modified neighborhood"
+}
+@article{shih,
+author = {Ching Fu, Shih and Milne, George},
+year = {2003},
+month = {01},
 pages = {},
-title = {Impact of Neighborhood Structure on Epidemic Spreading by Means of Cellular Automata Approach},
-volume = {18},
-booktitle = {Procedia Computer Science}
+title = {Epidemic Modelling Using Cellular Automata},
+booktitle = {ACAL2003: The First Australian Conference on Artificial Life; Canberra, Australia}
+}
+
+@article{report,
+author = {Sharon Chang},
+title = {Cellular Automata Model for Epidemics},
+year = {2008},
+url = {http://csc.ucdavis.edu/~chaos/courses/nlp/Projects2008/SharonChang/Report.pdf },
+urldate = {18.12.2017},
 }
 
 @online{moore,

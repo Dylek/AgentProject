@@ -17,38 +17,101 @@
 \endgroup
 
 \sortlist[entry]{nty/global/}
-  \entry{cisse}{misc}{}
-    \name{author}{3}{}{%
-      {{hash=CB}{%
-         family={Cissé},
+  \entry{report}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CS}{%
+         family={Chang},
          familyi={C\bibinitperiod},
-         given={Baki},
-         giveni={B\bibinitperiod},
-      }}%
-      {{hash=EYS}{%
-         family={El\bibnamedelima Yacoubi},
-         familyi={E\bibinitperiod\bibinitdelim Y\bibinitperiod},
-         given={Samira},
+         given={Sharon},
          giveni={S\bibinitperiod},
       }}%
-      {{hash=TA}{%
-         family={Tridane},
-         familyi={T\bibinitperiod},
-         given={Abdessamad},
-         giveni={A\bibinitperiod},
-      }}%
     }
-    \strng{namehash}{CBEYSTA1}
-    \strng{fullhash}{CBEYSTA1}
+    \strng{namehash}{CS1}
+    \strng{fullhash}{CS1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{sortinit}{C}
     \field{sortinithash}{C}
-    \field{booktitle}{Procedia Computer Science}
+    \field{title}{Cellular Automata Model for Epidemics}
+    \verb{url}
+    \verb http://csc.ucdavis.edu/~chaos/courses/nlp/Projects2008/SharonChang/Re
+    \verb port.pdf
+    \endverb
+    \field{year}{2008}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{shih}{article}{}
+    \name{author}{2}{}{%
+      {{hash=CFS}{%
+         family={Ching\bibnamedelima Fu},
+         familyi={C\bibinitperiod\bibinitdelim F\bibinitperiod},
+         given={Shih},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Milne},
+         familyi={M\bibinitperiod},
+         given={George},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CFSMG1}
+    \strng{fullhash}{CFSMG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{ACAL2003: The First Australian Conference on Artificial
+  Life; Canberra, Australia}
+    \field{title}{Epidemic Modelling Using Cellular Automata}
+    \field{month}{01}
+    \field{year}{2003}
+  \endentry
+
+  \entry{cisse}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CB}{%
+         family={Cissé},
+         familyi={C\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=YSE}{%
+         family={Yacoubi},
+         familyi={Y\bibinitperiod},
+         given={S.\bibnamedelima El},
+         giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=TA}{%
+         family={Tridane},
+         familyi={T\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{Cellular automata, Epidemics spreading, SEIR, Basic reproduction
+  number, Modified neighborhood}
+    \strng{namehash}{CBYSETA1}
+    \strng{fullhash}{CBYSETA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.procs.2013.05.450
+    \endverb
+    \field{issn}{1877-0509}
+    \field{note}{2013 International Conference on Computational Science}
+    \field{number}{Supplement C}
+    \field{pages}{2603 \bibrangedash  2606}
     \field{title}{Impact of Neighborhood Structure on Epidemic Spreading by
   Means of Cellular Automata Approach}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S1877050913005930
+    \endverb
     \field{volume}{18}
-    \field{month}{06}
+    \field{journaltitle}{Procedia Computer Science}
     \field{year}{2013}
   \endentry
 

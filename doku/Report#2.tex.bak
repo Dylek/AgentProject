@@ -43,29 +43,71 @@
 	The choosen model should represent a disease we want to model. SIR model assume that in recovery status individual get full immunity and on the other hand in SIS person can get sick even after successful treatment.\cite{WHITE}\\
 	
 	The neighborhood we choose can greatly affect dynamics of disease spreading as stated in \cite{cisse}. However more than type of neighborhood the type of connection between cells is important. There can be one, two three or none ways of transport. It affects equations and speed of spreading.\cite{WHITE} \\
+
+		During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.\\	
 	
-	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\
+	Each cell is not an individual person, but a representation of square portion of land. That said there can be a cell with only infected people in it. People can move from one cell to another.\cite{WHITE}  \\ Such approach have two major benefits: ``  first it reduces the total number of cells and hence reduces computation time; secondly it provides generality.``\cite{shih}
 	
-	During next step model calculate how many people will be in each cell in each of groups(susceptible,infected,exposed,recovered). Vaccinations, cell connections, neighbourhood and people spread are major factors in how disease will spread.\\
-	
-	
-	
-	%TODO poprawić
+
 
 	How and when cell change their status? This questions are answered, by mathematical equations with proper assumption about model.\\
-	When we assume that population count is constant we can use KedleMadroc model\cite{} (hovewer it is regarded as simplified).\\
+	When we assume: that population size is constant, there is no incubation period and cycle where one is contagious is the same as disease.  We can use The Kermack-McKendrick model\cite{report} \\
+	\begin{equation}
+	\frac{dS}{dt}=-\beta SI
+	\end{equation}
 	
-	There are more mathematical models in literature:\\
-	SIR\cite{}\\
-	SIS\cite{}\\
+	\begin{equation}
+	\frac{dI}{dt}=\beta SI-\gamma I
+	\end{equation}
+	
+	\begin{equation}
+	\frac{dR}{dt}=\gamma I
+	\end{equation}
+	\begin{itemize}
+		\item S - number of susceptible persons
+		\item I - number of infected persons
+		\item R - number of recovered persons
+		\item $\beta$ - infection rate
+		\item $\gamma$ - recovery rate
+	\end{itemize}
+	
+	
+	
+	There is a lot of mathematical models in literature. The following equation focus on models ready to use in CA.\\
+	In \cite{WHITE} there are equations for SIR model :
+	
+	\begin{equation}
+	I^t_{ij}=\left(1-\epsilon\right)\cdot I^{t-1}_{ij}+v\cdot S^{t-1}_{ij}\cdot I^{t-1}_{ij}+S^{t-1}_{ij} \cdot \sum\limits_{\alpha,\beta\in V^{*}}\frac{N_{i+\alpha,j+\beta}}{N_{ij}}\cdot \mu^{i,j}_{\alpha\beta}\cdot I^{t-1}_{i+\alpha,j+\beta} 
+	\end{equation}		
+		\begin{equation}
+	S^t_{ij}=S^{t-1}_{ij}-\omega\cdot S^{t-1}_{ij}-v\cdot S^{t-1}_{ij}\cdot I^{t-1}_{ij}-S^{t-1}_{ij} \cdot \sum\limits_{\alpha,\beta\in V^{*}}\frac{N_{i+\alpha,j+\beta}}{N_{ij}}\cdot \mu^{i,j}_{\alpha\beta}\cdot I^{t-1}_{i+\alpha,j+\beta} 
+\end{equation}	
+	\begin{equation}
+	R^t_{ij}=R^{t-1}_{ij}+\epsilon\cdot I^{t-1}_{ij}+\omega\cdot S^{t-1}_{ij}
+\end{equation}	
+	
+	
+	In article \cite{cisse} equations for SEIR model were presented: 
+			\begin{equation}
+	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
+\end{equation}	
+	\begin{equation}
+	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
+	\end{equation}		
+
+\begin{equation}
+I^{t+1}_{i,j}=\left(1-\epsilon\right)\cdot I^{t}_{ij}+\sigma\cdot E^t_{ij}
+\end{equation}
+	\begin{equation}
+	R^{t+1}_{i,j}=R^{t}_{i,j}+\epsilon\cdot I^{t}_{i,j}
+\end{equation}	
 	
 
-
 	
-%TODO może coś tu rozwinąć itp
+
 \section{Project goals}
 
-The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in board(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
+The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in lattice(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
 
 \section{Implemented models}
 \subsection{Neighbourhood}
@@ -97,15 +139,20 @@ To not hardcode adding of neighbours to cell, following equations found on wolfr
 
 \subsection{Epidemic models}
 %TODO poprawić
-Spread of disease between cells was modelled, by implementing transition equation proposed by\cite{WHITE}. It was decided to use it, because it takes into consideration:\\
+SIR model was implemented with transition equations proposed by\cite{WHITE}. It was decided to use it, because :\\
 \begin{itemize}
-\item vaccination
-\item number of means of transportation
-\item each cell is small population not a individual
+\item it takes vaccination into account
+\item parameters of environment are considered
+\item each cell has small population of individuals
 \end{itemize}
 
+%dodać listing kodu calculateNew state dla każdej klasy implementującej cell
+
+%TODO j.procs.2013.05.450 ma równania na S E I R
+
 \subsection{Code}
-Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of if and switches Factory pattern was used for creating Cell object for chosen model.
+Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of ifs and switches Factory pattern was used for creating Cell objects for chosen model.
+%TODO add code listing for cell interface
 \begin{figure}
 \includegraphics[scale=0.7]{klasy.PNG} 
 \caption{Class diagram}
@@ -122,7 +169,7 @@ To start simulation:
 \item Choose neighbourhood type and size
 \item Set model parameters
 \item Click INIT button
-\item Change cell types, by mouse clicking(or draging) on board (it is possible to choose new type of cell, depends on chosen model)
+\item Change cell types, by mouse clicking(or draging) on lattice (it is possible to choose new type of cell, depends on chosen model)
 \item Change speed of simulation on slider(optional, default 1s)
 \item To start click START button
 \item To pause click STOP button(you can resume with START button)
