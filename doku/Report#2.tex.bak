@@ -95,7 +95,7 @@
 	
 	
 	There is a lot of mathematical models in literature. The following equation focus on models ready to use in CA.\\
-	In \cite{WHITE} there are equations for SIR model :
+	In \cite{WHITE} there are equations for SIR model. Population in each cell is constant $S^{t}_{i,j}\,+\,I^{t}_{i,j}\,+\,R^{t}_{i,j}\,=\,1$, cell (i,j)state is identified, by 3-tuple$(DS^{t}_{i,j},DI^{t}_{i,j},DR^{t}_{i,j})$ Equations looks as follow:
 	
 	\begin{equation}
 	I^t_{ij}=\left(1-\epsilon\right)\cdot I^{t-1}_{ij}+v\cdot S^{t-1}_{ij}\cdot I^{t-1}_{ij}+S^{t-1}_{ij} \cdot \sum\limits_{\alpha,\beta\in V^{*}}\frac{N_{i+\alpha,j+\beta}}{N_{ij}}\cdot \mu^{i,j}_{\alpha\beta}\cdot I^{t-1}_{i+\alpha,j+\beta} 
@@ -115,14 +115,14 @@
 	\item $t$ - iteration
 	\item $v$ - virulence of the epidemic  $v \in \left[0,1\right]$
 	\item $\omega$ -  vaccination rate $\omega \in \left[0,1\right]$
-	\item $\$
+	\item $c^{(i,j)}_{\alpha\beta}$ - connection factor $c in \{0,0.4,0.6,1 \}$
+	\item $ m^{(i,j)}_{\alpha\beta}$ - movement factor $m \in \left[0,1\right]$
 	\item $N_{i,j}$ - population size in cell (i,j)
 	\item $\epsilon$ - recovery rate $\epsilon \in \left[0,1\right]$
 	\item $V$ -neighbourhood of size n is defined as the set of coordinates $(\alpha,\beta): N={(\alpha_k,\beta_k),1\leq k \leq n}$
 	\item $V^{*}$ - $ V^{*}= V-{(0,0)} $ 
 	\item $S^{t}_{i,j}$ - number of susceptible individuals in cell (i,j) in time $t$
 	\item $I^{t}_{i,j}$ - number of infected individuals in cell (i,j) in time $t$
-	\item $E^{t}_{i,j}$ - number of exposed individuals in cell (i,j) in time $t$
 	\item $R^{t}_{i,j}$ - number of recovered individuals in cell (i,j) in time $t$
 	\end{itemize}	
 	
@@ -131,10 +131,10 @@
 	
 	In article \cite{cisse} equations for SEIR model were presented( state of cell (i,j) is identified by 4-tuple($S^t_{ij},I^t_{ij},E^t_{ij},R^t_{ij} $)): 
 			\begin{equation}
-	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
+	S^{t+1}_{i,j}=S^{t}_{i,j}-v\cdot S^{t}_{i,j}\cdot I^t_{i,j} -v\cdot S^{t}_{i,j}\cdot  \sum\limits_{\alpha,\beta\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta} 
 \end{equation}	
 	\begin{equation}
-	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot \cdot \sum\limits_{\left(\alpha,\beta\right)\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
+	E^{t+1}_{i,j}=(1-\sigma)\cdot E^t_{i,j}+v\cdot S^{t}_{i,j}\cdot I^t_{i,j} +v\cdot S^{t}_{i,j}\cdot  \sum\limits_{\left(\alpha,\beta\right)\in N^{*}}\frac{Q_{i+\alpha,j+\beta}}{Q_{i,j}}\cdot d^{i,j}_{i+\alpha,j+\beta}\cdot I^{t}_{i+\alpha,j+\beta}
 	\end{equation}		
 
 \begin{equation}
@@ -166,7 +166,7 @@ The aim of this project is to implement SIR model of epidemic spread in cellular
 
 \section{Implemented models}
 \subsection{Neighbourhood}
-Cell can have Von Neman or Moore neighbourhood, it is possible to change it size (from 1 to 4).
+Cell can have Von Newman or Moore neighbourhood, it is possible to change it size (from 1 to 4).
 \begin{figure}[H]
 \includegraphics[scale=0.5]{moore.png} 
 \caption{Moore neighbourhood}
@@ -213,6 +213,9 @@ Program was written in Java. Simulation is created, by use of Timeline class, wh
 \lstinputlisting{Cell.java}
 
 
+For testing how code works and if program design is correct game of life was also implemented with not hard coded parameter.
+
+
 %TODO które zaimplementowałem, może jakiś listning kodu
 \subsection{Finished GUI}
 The user interface was created with JavaFX and SceneBuilder.\\
@@ -222,7 +225,7 @@ To start simulation:
 \item Choose neighbourhood type and size
 \item Set model parameters
 \item Click INIT button
-\item Change cell types, by mouse clicking(or draging) on lattice (it is possible to choose new type of cell, depends on chosen model)
+\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell, depends on chosen model)
 \item Change speed of simulation on slider(optional, default 1s)
 \item To start click START button
 \item To pause click STOP button(you can resume with START button)
@@ -232,11 +235,11 @@ To start simulation:
 
 \begin{figure}[H]
 \includegraphics[scale=0.7]{GUI2.PNG} 
-\caption{GUI when program start}
+\caption{GUI - program start}
 \end{figure}
 \begin{figure}[H]
 \includegraphics[scale=0.7]{GUI3.PNG} 
-\caption{GUI ready to start simulation}
+\caption{GUI - simulation initialized }
 \end{figure}
 \section{Summary}
 %TODO wnioski
