@@ -44,7 +44,7 @@ public class CellSEIR implements Cell {
         return 0;
     }
 
-    @Override
+    //@Override
     public void setParameters(HashMap<String, Double> par) {
 
     }

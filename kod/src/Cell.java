@@ -19,6 +19,7 @@ public interface Cell {
     void addNeigbour(Cell c);
 
     Paint getColor();
+
     void calculateNewState();
     void changeState();
     void clear();
@@ -26,5 +27,6 @@ public interface Cell {
     int getType();
     void setType(int i);
     int getNumberOfTypes();
-    void setParameters(HashMap<String,Double> par);
+    //void setParameters(HashMap<String,Double> par);
+
 }

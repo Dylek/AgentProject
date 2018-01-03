@@ -146,11 +146,11 @@ public class MainController {
 
                 break;
             case SIR:
-                parameters.put("S",0.0);
-                parameters.put("I",0.0);
-                parameters.put("R",0.0);
+                for(String str: CellSIR.getParametersType())
+                    parameters.put(str,0.0);
                 break;
             case SEIR:
+
                 parameters.put("S",0.0);
                 parameters.put("E",0.0);
                 parameters.put("I",0.0);
@@ -173,7 +173,7 @@ public class MainController {
     void startSim(){
         boardToPaint.setDisable(false);
         board=new BoardCA(100,modelChooser.getValue());
-        board.setParameters(parameters);
+        board.setParameters(parameters,modelChooser.getValue());
         board.setDrawingProperties(boardToPaint,cellSize,laneThickness);
 
         initTypeChange();
@@ -250,7 +250,7 @@ public class MainController {
         parameters=new HashMap<>();
         prepareCanvas();
         speedSlider.setMin(0.5);
-        speedSlider.setMax(2);
+        speedSlider.setMax(5);
         speedSlider.setMajorTickUnit(0.2f);
         speedSlider.setShowTickLabels(true);
         speedSlider.setShowTickMarks(true);

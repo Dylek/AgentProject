@@ -109,12 +109,19 @@ public class BoardCA {
         this.laneThickness=laneThickness;
     }
 
-    public void setParameters(HashMap<String,Double> par){
+    public void setParameters(HashMap<String,Double> par,EpidemicModels model){
         System.out.println(par);
-        for(int x=0;x<board.length;x++){
-            for(int y=0;y<board.length;y++){
-                    board[x][y].setParameters(par);
-            }
+        if(model.equals(EpidemicModels.GAMEOFLIFE)){
+            CellGameOfLife.setParameters(par);
+            //for(int x=0;x<board.length;x++){
+            //    for(int y=0;y<board.length;y++){
+           //         board[x][y].setParameters(par);
+          //      }
+          //  }
         }
+        if(model.equals(EpidemicModels.SIR)){
+            CellSIR.setConstantParameters(par);
+        }
+
     }
 }

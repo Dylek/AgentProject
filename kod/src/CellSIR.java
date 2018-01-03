@@ -5,24 +5,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CellSIR implements Cell {
-
+    //0-empty,1-S,2-I,3-R
+    //0-empty space, like ocean, not inhabitated land
     private int type=0;
-    private ArrayList<Cell> neighboors=new ArrayList<Cell>();
-
+    private ArrayList<CellSIR> neighboors=new ArrayList<CellSIR>();
+    public int cellPopulation=100;//constant//cot the same for every cell
+    //it holds parameters like specific of One cell
     private HashMap<String,Double> parameters;
-    private int nextState;
+    private int nextState=0;
     private HashMap<String, Double> nextStateParameters;
 
+    //It holds parameters like vacination rate; things constant for whole lattice
+    private static HashMap<String,Double> constantParameters;
     public CellSIR(){
         parameters=new HashMap<>();
         nextStateParameters=new HashMap<>();
-        nextState=0;
-        this.type=0;
+        constantParameters=new HashMap<>();
+        //nextState=0;
+        this.type=1;
+        parameters.put("infected",0.1);
+        parameters.put("suspectible",0.8);
+        parameters.put("recovered",0.1);
     }
 
     @Override
     public void addNeigbour(Cell c) {
-        neighboors.add(c);
+        neighboors.add((CellSIR)c);
     }
 
     @Override
@@ -38,19 +46,74 @@ public class CellSIR implements Cell {
         return Color.WHITE;
     }
 
+    private double getBigSum(){
+        double bigSum=0;
+
+        for(CellSIR cell: neighboors){
+            bigSum+=cell.cellPopulation/this.cellPopulation*cell.getMovementNumber() * cell.parameters.get("infected");
+        }
+        //this.cellPopulation/this.cellPopulation*cell.getMovementNumber() * cell.parameters.get("infected");
+        bigSum+=1*this.getMovementNumber() * this.parameters.get("infected");
+        return bigSum;
+    }
+    public double getMovementNumber(){
+        double ni=0;
+        ni=constantParameters.get("connection factor")*constantParameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
+        //ni=this.parameters.get("connection factor")*this.parameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
+
+        return ni;
+    }
     @Override
     public void calculateNewState(){
-        //callculate new state
-        //System.out.println("calculating new state");
+        if(type!=0) {
+            //callculate new state
+            //System.out.println("calculating new state");
+            double suspectible = 0;
+            double infected = 0;
+            double recovered = 0;
 
+
+            infected = (1 - constantParameters.get("recovery rate")) * parameters.get("infected") +
+                    +constantParameters.get("virulence of the epidemic") * parameters.get("suspectible") * parameters.get("infected") +
+                    parameters.get("suspectible") * this.getBigSum();
+
+            suspectible = parameters.get("suspectible") - constantParameters.get("vaccination rate") * parameters.get("suspectible") +
+                    -constantParameters.get("virulence of the epidemic") * parameters.get("suspectible") * parameters.get("infected") +
+                    -parameters.get("suspectible") * this.getBigSum();
+
+            recovered = parameters.get("recovered") +
+                    constantParameters.get("recovery rate") * parameters.get("infected") +
+                    constantParameters.get("vaccination rate") * parameters.get("suspectible");
+
+
+            //cell change type if one type of inhabitans has majory in population
+            if (infected > suspectible && infected > recovered) {
+                nextState = 2;//infected
+            }else
+            if (suspectible > infected && suspectible > recovered) {
+                nextState = 1;//suspectible
+            }else
+            if (recovered > suspectible && recovered > infected) {
+                nextState = 3;//recovered
+            }else{
+                nextState=this.type;//no change
+            }
+
+            nextStateParameters.put("suspectible", suspectible);
+            nextStateParameters.put("infected", infected);
+            nextStateParameters.put("recovered", recovered);
+        }
     }
     @Override
     public void changeState(){
         //change state
+        if(type!=0){
+            this.type=nextState;
+            parameters.clear();
+            parameters.putAll(nextStateParameters);
 
-        this.type=nextState;
-        parameters.clear();
-        parameters.putAll(nextStateParameters);
+        }
+
     }
 
     @Override
@@ -61,21 +124,83 @@ public class CellSIR implements Cell {
 
     @Override
     public int getType() {
-        return 0;
+        return this.type;
     }
 
     @Override
     public void setType(int i) {
+
+        switch (i){
+            case 0:
+                parameters.put("infected",0.0);
+                parameters.put("suspectible",0.0);
+                parameters.put("recovered",0.10);
+                break;
+            case 1:
+                parameters.put("infected",0.0);
+                parameters.put("suspectible",1.0);
+                parameters.put("recovered",0.0);
+                break;
+            case 2:
+                parameters.put("infected",1.0);
+                parameters.put("suspectible",0.0);
+                parameters.put("recovered",0.0);
+                break;
+            case 3:
+                parameters.put("infected",0.0);
+                parameters.put("suspectible",0.0);
+                parameters.put("recovered",1.0);
+                break;
+            default:
+        }
+
+
+
         this.type=i;
     }
 
     @Override
     public int getNumberOfTypes() {
-        return 0;
+        return 4;
     }
 
-    @Override
+    //@Override
     public void setParameters(HashMap<String, Double> par) {
 
+    }
+   // @Override
+    public static void setConstantParameters(HashMap<String, Double> par) {
+
+        constantParameters.putAll(par);
+        //make sure parameters are in constraints
+        if(par.get("virulence of the epidemic")>1 || par.get("virulence of the epidemic")<0){
+            constantParameters.put("virulence of the epidemic",0.0);
+        }
+        if(par.get("vaccination rate")>1 || par.get("vaccination rate")<0){
+            constantParameters.put("vaccination rate",0.2);
+        }
+        if(par.get("recovery rate")>1 || par.get("recovery rate")<0){
+            constantParameters.put("recovery rate",0.3);
+        }
+        if(par.get("movement factor")>1 || par.get("movement factor")<0){
+            constantParameters.put("movement factor",0.5);
+        }
+        if(par.get("connection factor")>1 || par.get("connection factor")<0){
+            constantParameters.put("connection factor",0.4);//TODO add snap to 0,0.4,0.6,1
+        }
+        //double c=par.get("connection factor");//snap to
+
+
+    }
+
+    public static ArrayList<String> getParametersType(){
+        ArrayList<String>par=new ArrayList<>();
+        par.add("virulence of the epidemic");
+        par.add("vaccination rate");
+        par.add("connection factor");//snap //supose to be chosen for each cell
+        par.add("movement factor");//supose to be chosen for each cell
+        par.add("recovery rate");
+
+        return par;
     }
 }

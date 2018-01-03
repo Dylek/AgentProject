@@ -10,19 +10,19 @@ public class CellGameOfLife implements Cell {
     private int type=0;
     private ArrayList<Cell> neighboors=new ArrayList<Cell>();
 
-    private HashMap<String,Double> parameters;
+    private static HashMap<String,Double> parameters;
     private int nextState;
-    private HashMap<String, Double> nextStateParameters;
+   // private HashMap<String, Double> nextStateParameters;
 
 
     public CellGameOfLife(){
         parameters=new HashMap<>();
-        nextStateParameters=new HashMap<>();
+      //  nextStateParameters=new HashMap<>();
         nextState=0;
         this.type=0;
     }
-    public void setParameters(HashMap<String,Double> par){
-        this.parameters.putAll(par);
+    public static void setParameters(HashMap<String,Double> par){
+        parameters.putAll(par);
     }
 
     @Override
