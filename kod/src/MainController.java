@@ -102,8 +102,7 @@ public class MainController {
 
         if((x<board.getSize()) && (x>0) && (y>0) && (y<board.getSize())){
             board.board[x][y].setType(typeChange.getValue());
-
-            paintBoard();
+               paintBoard();
         }
     }
 
@@ -142,8 +141,9 @@ public class MainController {
         parameters.clear();
         switch (model){
             case GAMEOFLIFE:
-                parameters.put("Live",0.0);
-                parameters.put("DIe",0.0);
+                for(String str: CellGameOfLife.getParametersTypes())
+                    parameters.put(str,0.0);
+
                 break;
             case SIR:
                 parameters.put("S",0.0);
@@ -165,11 +165,15 @@ public class MainController {
     }
 
     private void prepareCanvas() {
+        boardToPaint.setDisable(true);
+        iterationNumber=0;
         boardToPaint.getGraphicsContext2D().setFill(Color.WHITE);
         boardToPaint.getGraphicsContext2D().fillRect(0,0,boardToPaint.getWidth(),boardToPaint.getHeight());
     }
     void startSim(){
+        boardToPaint.setDisable(false);
         board=new BoardCA(100,modelChooser.getValue());
+        board.setParameters(parameters);
         board.setDrawingProperties(boardToPaint,cellSize,laneThickness);
 
         initTypeChange();

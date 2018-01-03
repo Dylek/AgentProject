@@ -26,4 +26,5 @@ public interface Cell {
     int getType();
     void setType(int i);
     int getNumberOfTypes();
+    void setParameters(HashMap<String,Double> par);
 }

@@ -4,6 +4,7 @@ import javafx.scene.canvas.Canvas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.function.Function;
 
 /**
@@ -106,5 +107,14 @@ public class BoardCA {
         this.boardToPaint=boardToPaint;
         this.cellSize=cellSize;
         this.laneThickness=laneThickness;
+    }
+
+    public void setParameters(HashMap<String,Double> par){
+        System.out.println(par);
+        for(int x=0;x<board.length;x++){
+            for(int y=0;y<board.length;y++){
+                    board[x][y].setParameters(par);
+            }
+        }
     }
 }

@@ -73,4 +73,9 @@ public class CellSIR implements Cell {
     public int getNumberOfTypes() {
         return 0;
     }
+
+    @Override
+    public void setParameters(HashMap<String, Double> par) {
+
+    }
 }

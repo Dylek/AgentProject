@@ -1,5 +1,7 @@
 import javafx.scene.paint.Paint;
 
+import java.util.HashMap;
+
 public class CellSEIR implements Cell {
 
     @Override
@@ -40,5 +42,10 @@ public class CellSEIR implements Cell {
     @Override
     public int getNumberOfTypes() {
         return 0;
+    }
+
+    @Override
+    public void setParameters(HashMap<String, Double> par) {
+
     }
 }
