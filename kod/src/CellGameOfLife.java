@@ -91,13 +91,13 @@ public class CellGameOfLife implements Cell {
     }
 
     @Override
-    public void setType(int i) {
+    public void setType(int i, HashMap<String,Double>par) {
         this.type=i;
     }
 
     @Override
     public int getNumberOfTypes() {
-        return 0;
+        return 2;
     }
 
     public static ArrayList<String> getParametersTypes(){
@@ -108,6 +108,7 @@ public class CellGameOfLife implements Cell {
         pars.add("become alive to");
         return pars;
     }
+
 
     private int getAliveN(){
         int alive=0;

@@ -35,13 +35,13 @@ public class CellSEIR implements Cell {
     }
 
     @Override
-    public void setType(int i) {
+    public void setType(int i, HashMap<String,Double>par) {
 
     }
 
     @Override
     public int getNumberOfTypes() {
-        return 0;
+        return 5;
     }
 
     //@Override

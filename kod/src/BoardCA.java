@@ -1,6 +1,7 @@
 
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.XYChart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.function.Function;
  *
  */
 public class BoardCA {
+    private XYChart.Series[] series;
     private Canvas boardToPaint;
     private int cellSize =10;
     private int laneThickness=2;
@@ -27,6 +29,12 @@ public class BoardCA {
                 board[x][y]= CellFactory.getCell(model);
             }
         }
+        series=new XYChart.Series[board[0][0].getNumberOfTypes()];
+        for(int i=0;i<board[0][0].getNumberOfTypes();i++){
+            series[i]=new XYChart.Series();
+            series[i].setName("Type "+i);
+        }
+
     }
 
     private ArrayList<Integer> getIndexesRange(int i,int size,int end){
@@ -74,18 +82,31 @@ public class BoardCA {
     }
 
 
-    public void iteration(){
+    public void iteration(int iteration){
         System.out.println("iteratrion new");
+        Double[] data=new Double[board[0][0].getNumberOfTypes()];
+        for(int i=0;i<board[0][0].getNumberOfTypes();i++){
+            data[i]=0.0;
+        }
         for(Cell[] arr:board){
             for(Cell cell:arr){
                 cell.calculateNewState();
+                data[cell.getType()]+=1;
             }
         }
+        for(int i=0;i<board[0][0].getNumberOfTypes();i++){
+            series[i].getData().add(new XYChart.Data<>(iteration,data[i]));
+        }
+
+
         for(Cell[] arr:board){
             for(Cell cell:arr){
                 cell.changeState();
             }
         }
+
+
+
         paintBoard();
       //  Arrays.stream(board).map(x-> Arrays.stream(x).map(y->y.calculateNewState()));
     }
@@ -123,5 +144,9 @@ public class BoardCA {
             CellSIR.setConstantParameters(par);
         }
 
+    }
+
+    public XYChart.Series[] getDataForCharts(){
+        return series;
     }
 }

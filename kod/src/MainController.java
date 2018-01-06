@@ -18,12 +18,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
@@ -55,15 +60,28 @@ public class MainController {
     @FXML // fx:id="speedSlider"
     private Slider speedSlider; // Value injected by FXMLLoader    // /\ it change itself
     @FXML // fx:id="chart1"
-    private LineChart<?, ?> chart1; // Value injected by FXMLLoader
+    private LineChart chart1; // Value injected by FXMLLoader
+    @FXML
+    private Label cellTypeText;
+    @FXML
+    private Label modelTextLabel;
+    @FXML
+    private Label iterationText;
+    @FXML
+    private VBox cellParametersSpace;
+    @FXML
+    private Button clickAll;
+    @FXML
+    private Button generateChartButton;
 
     private BoardCA board;
     private int cellSize =10;
     private int laneThickness=2;
     private HashMap<String,Double> parameters;
+    private HashMap<String,Double> cellParameters;
     private int iterationNumber=0;
     private Timeline timeline;
-
+ 
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -78,11 +96,30 @@ public class MainController {
         assert stopButton != null : "fx:id=\"stopButton\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert speedSlider != null : "fx:id=\"speedSlider\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert typeChange != null : "fx:id=\"typeChange\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert modelTextLabel != null : "fx:id=\"modelTextLabel\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert iterationText != null : "fx:id=\"iterationText\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert clickAll != null : "fx:id=\"clickAll\" was not injected: check your FXML file 'CAapp.fxml'.";
         assert chart1 != null : "fx:id=\"chart1\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert cellTypeText != null : "fx:id=\"cellTypeText\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert cellParametersSpace != null : "fx:id=\"cellParametersSpace\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert generateChartButton != null : "fx:id=\"generateChartButton\" was not injected: check your FXML file 'CAapp.fxml'.";
+        assert chartSpace != null : "fx:id=\"chartSpace\" was not injected: check your FXML file 'CAapp.fxml'.";
 
 
         initUI();
+        initCharts();
         disableParameters(true);
+    }
+
+    @FXML
+    void allClicked(ActionEvent event) {
+        for(int x=0;x<board.getSize();x++){
+            for(int y=0;y<board.getSize();y++){
+                board.board[x][y].setType(typeChange.getValue(),cellParameters);
+
+            }
+        }
+        paintBoard();
     }
 
     @FXML
@@ -100,8 +137,8 @@ public class MainController {
         int x = (int) event.getX()/cellSize;
         int y = (int) event.getY()/cellSize;
 
-        if((x<board.getSize()) && (x>0) && (y>0) && (y<board.getSize())){
-            board.board[x][y].setType(typeChange.getValue());
+        if((x<board.getSize()) && (x>=0) && (y>=0) && (y<board.getSize())){
+            board.board[x][y].setType(typeChange.getValue(),cellParameters);
                paintBoard();
         }
     }
@@ -139,6 +176,7 @@ public class MainController {
     //TODO add parameters(correct) for each model
     private void setParameters(EpidemicModels model) {
         parameters.clear();
+        cellParameters.clear();
         switch (model){
             case GAMEOFLIFE:
                 for(String str: CellGameOfLife.getParametersTypes())
@@ -148,6 +186,8 @@ public class MainController {
             case SIR:
                 for(String str: CellSIR.getParametersType())
                     parameters.put(str,0.0);
+                for(String str:CellSIR.getCellParametersType())
+                    cellParameters.put(str,0.0);
                 break;
             case SEIR:
 
@@ -161,7 +201,7 @@ public class MainController {
                 parameters.put("I",0.0);
                 break;
         }
-        paintParameters();
+        paintParameters(parametersSpace,parameters);
     }
 
     private void prepareCanvas() {
@@ -180,8 +220,13 @@ public class MainController {
         paintBoard();
         board.setNeigbourhood(neighborhood.getValue(),sizeSpinner.getValue());
 
+        paintParameters(cellParametersSpace,cellParameters);
+
         System.out.println("Simulation initialised for model: "+modelChooser.getValue());
+        modelTextLabel.setText(modelChooser.getValue().toString());
     }
+
+
 
     void initTypeChange(){
         int maxTypes=0;
@@ -194,28 +239,30 @@ public class MainController {
 
         typeChange.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxTypes,0));
     }
-    private void paintParameters() {
-        parametersSpace.getChildren().removeAll(parametersSpace.getChildren());
-        for(String key: parameters.keySet()){
-            parametersSpace.getChildren().add(new Label(key));
+    private void paintParameters(VBox spaceToPaint,HashMap<String,Double> parametersToPaint) {
+
+        spaceToPaint.getChildren().removeAll(spaceToPaint.getChildren());
+        for(String key: parametersToPaint.keySet()){
+            spaceToPaint.getChildren().add(new Label(key));
             TextField tem=new TextField();
-            tem.setText(String.valueOf(parameters.get(key)));
+            tem.setText(String.valueOf(parametersToPaint.get(key)));
             tem.textProperty().addListener((observable,oldValue,newValue) -> {
                 if(newValue.matches("\\d+\\.\\d+")
                         || newValue.matches("\\d+")
                         || newValue.matches("\\d+\\.")  ){
                     if(newValue.endsWith(".")){
-                        parameters.put(key,Double.valueOf(newValue.substring(0,newValue.length())));
+                        parametersToPaint.put(key,Double.valueOf(newValue.substring(0,newValue.length())));
                     }else {
-                        parameters.put(key,Double.valueOf(newValue));
+                        parametersToPaint.put(key,Double.valueOf(newValue));
                     }
 
                 }else{
                     tem.setText("0.0");
                 }
             });
-            parametersSpace.getChildren().add(tem);
+            spaceToPaint.getChildren().add(tem);
         }
+
     }
 
     private void paintBoard(){
@@ -226,6 +273,7 @@ public class MainController {
         initButton.setDisable(!status);
         modelChooser.setDisable(!status);
         parametersSpace.setDisable(!status);
+        cellParametersSpace.setDisable(status);
         neighborhood.setDisable(!status);
         sizeSpinner.setDisable(!status);
         typeChange.setDisable(status);
@@ -233,21 +281,28 @@ public class MainController {
         clearButton.setDisable(status);
         speedSlider.setDisable(status);
         startButton.setDisable(status);
+        clickAll.setDisable(status);
+        generateChartButton.setDisable(status);
     }
 
 
 
     private void doIteration(){
         iterationNumber+=1;
-        board.iteration();
+        iterationText.setText(String.valueOf(iterationNumber));
+        board.iteration(iterationNumber);
         System.out.println("Iteration number:"+iterationNumber);
     }
 
+    private void initCharts(){
+
+    }
     private void paintCharts(){
         //TODO painting charts
     }
     private void initUI() {
         parameters=new HashMap<>();
+        cellParameters=new HashMap<>();
         prepareCanvas();
         speedSlider.setMin(0.5);
         speedSlider.setMax(5);
@@ -285,5 +340,30 @@ public class MainController {
     public Duration getIterationDelay() {
         //return Duration.seconds(1f);
         return Duration.seconds(1f / speedSlider.getValue());
+    }
+    @FXML
+    private Pane chartSpace;
+
+    @FXML
+    void generateChart(ActionEvent event) {
+
+        NumberAxis xAxis = new NumberAxis(1, iterationNumber, 1);
+        xAxis.setLabel("Iteration");
+        NumberAxis yAxis = new NumberAxis   (0, 10000, 50);
+        yAxis.setLabel("No. of individuals");
+        LineChart <Number, Number> chart=new LineChart<Number, Number>(xAxis,yAxis);
+       // chart=new LineChart(xAxis,yAxis);
+        XYChart.Series[] series=board.getDataForCharts();
+
+        for( XYChart.Series ser: series){
+            chart.getData().add(ser);
+        }
+        chart.setVisible(true);
+        Scene s=new Scene(chart);
+        Stage stage=new Stage();
+        stage.setScene(s);
+        stage.show();
+
+
     }
 }

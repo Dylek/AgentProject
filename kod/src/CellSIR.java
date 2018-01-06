@@ -22,10 +22,10 @@ public class CellSIR implements Cell {
         nextStateParameters=new HashMap<>();
         constantParameters=new HashMap<>();
         //nextState=0;
-        this.type=1;
-        parameters.put("infected",0.1);
-        parameters.put("suspectible",0.8);
-        parameters.put("recovered",0.1);
+        this.type=0;
+        parameters.put("infected",0.0);
+        parameters.put("suspectible",0.0);
+        parameters.put("recovered",0.0);
     }
 
     @Override
@@ -86,6 +86,7 @@ public class CellSIR implements Cell {
                     constantParameters.get("vaccination rate") * parameters.get("suspectible");
 
 
+            //TODO FACT CHECK IT
             //cell change type if one type of inhabitans has majory in population
             if (infected > suspectible && infected > recovered) {
                 nextState = 2;//infected
@@ -128,13 +129,13 @@ public class CellSIR implements Cell {
     }
 
     @Override
-    public void setType(int i) {
+    public void setType(int i,HashMap<String,Double> par) {
 
         switch (i){
             case 0:
                 parameters.put("infected",0.0);
                 parameters.put("suspectible",0.0);
-                parameters.put("recovered",0.10);
+                parameters.put("recovered",0.0);
                 break;
             case 1:
                 parameters.put("infected",0.0);
@@ -153,9 +154,7 @@ public class CellSIR implements Cell {
                 break;
             default:
         }
-
-
-
+        this.setParameters(par);
         this.type=i;
     }
 
@@ -165,10 +164,25 @@ public class CellSIR implements Cell {
     }
 
     //@Override
-    public void setParameters(HashMap<String, Double> par) {
+    //set parameters local for a cell
+    private void setParameters(HashMap<String, Double> par) {
+        constantParameters.putAll(par);
+        if(par.get("movement factor")>1 || par.get("movement factor")<0){
+            constantParameters.put("movement factor",0.5);
+        }
+        if(par.get("connection factor")>1 || par.get("connection factor")<0){
+            constantParameters.put("connection factor",0.4);//TODO add snap to 0,0.4,0.6,1
+        }
+        if(par.get("cell population")<1){
+            cellPopulation=10;
+        }else{
+            cellPopulation=par.get("cell population").intValue();
+        }
+
 
     }
    // @Override
+    //set parameters from global configuration
     public static void setConstantParameters(HashMap<String, Double> par) {
 
         constantParameters.putAll(par);
@@ -182,25 +196,25 @@ public class CellSIR implements Cell {
         if(par.get("recovery rate")>1 || par.get("recovery rate")<0){
             constantParameters.put("recovery rate",0.3);
         }
-        if(par.get("movement factor")>1 || par.get("movement factor")<0){
-            constantParameters.put("movement factor",0.5);
-        }
-        if(par.get("connection factor")>1 || par.get("connection factor")<0){
-            constantParameters.put("connection factor",0.4);//TODO add snap to 0,0.4,0.6,1
-        }
         //double c=par.get("connection factor");//snap to
-
-
     }
 
     public static ArrayList<String> getParametersType(){
         ArrayList<String>par=new ArrayList<>();
         par.add("virulence of the epidemic");
         par.add("vaccination rate");
-        par.add("connection factor");//snap //supose to be chosen for each cell
-        par.add("movement factor");//supose to be chosen for each cell
+       // par.add("connection factor");//snap //supose to be chosen for each cell
+        //par.add("movement factor");//supose to be chosen for each cell
         par.add("recovery rate");
 
+        return par;
+    }
+
+    public static ArrayList<String> getCellParametersType() {
+        ArrayList<String>par=new ArrayList<>();
+        par.add("cell population");
+        par.add("connection factor");//snap //supose to be chosen for each cell
+        par.add("movement factor");//supose to be chosen for each cell
         return par;
     }
 }

@@ -34,7 +34,7 @@ public class CellSIS implements Cell {
     }
 
     @Override
-    public void setType(int i) {
+    public void setType(int i, HashMap<String,Double>par) {
 
     }
 
