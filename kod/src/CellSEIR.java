@@ -8,6 +8,8 @@ public class CellSEIR implements Cell {
 
     //0-empty,1-S,2-E,3-I,4-R
     //0-empty space, like ocean, not inhabitated land
+    private int x;
+    private  int y;
     private int type=0;
     private ArrayList<CellSEIR> neighboors=new ArrayList<CellSEIR>();
     public int cellPopulation=100;//constant//cot the same for every cell
@@ -18,7 +20,7 @@ public class CellSEIR implements Cell {
 
     //It holds parameters like vacination rate; things constant for whole lattice
     private static HashMap<String,Double> constantParameters;
-    public CellSEIR(){
+    public CellSEIR(int x, int y){
         parameters=new HashMap<>();
         nextStateParameters=new HashMap<>();
         constantParameters=new HashMap<>();
@@ -50,10 +52,11 @@ public class CellSEIR implements Cell {
         bigSum+=1*this.getMovementNumber() * this.parameters.get("infected");
         return bigSum;
     }
-    //TODO inne
+
     public double getMovementNumber(){
         double ni=0;
-        ni=constantParameters.get("connection factor")*constantParameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
+        //TODO to jakoś śmiesznie liczone jest
+        //ni=constantParameters.get("connection factor")*constantParameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
         //ni=this.parameters.get("connection factor")*this.parameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
 
         return ni;

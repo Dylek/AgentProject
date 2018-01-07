@@ -28,7 +28,7 @@ public class BoardCA {
         board=new Cell[size][size];
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
-                board[x][y]= CellFactory.getCell(model);
+                board[x][y]= CellFactory.getCell(model,x,y);
             }
         }
         series=new XYChart.Series[board[0][0].getNumberOfTypes()];
