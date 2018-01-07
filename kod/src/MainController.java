@@ -107,7 +107,7 @@ public class MainController {
 
 
         initUI();
-        initCharts();
+
         disableParameters(true);
     }
 
@@ -145,8 +145,9 @@ public class MainController {
 
     @FXML
     void stopClicked(ActionEvent event) {
-
+        if(timeline!=null){
         timeline.stop();
+        }
 
     }
 
@@ -181,20 +182,18 @@ public class MainController {
             case GAMEOFLIFE:
                 for(String str: CellGameOfLife.getParametersTypes())
                     parameters.put(str,0.0);
-
                 break;
             case SIR:
-                for(String str: CellSIR.getParametersType())
+                for(String str:CellSIR.getParametersType())
                     parameters.put(str,0.0);
                 for(String str:CellSIR.getCellParametersType())
                     cellParameters.put(str,0.0);
                 break;
             case SEIR:
-
-                parameters.put("S",0.0);
-                parameters.put("E",0.0);
-                parameters.put("I",0.0);
-                parameters.put("R",0.0);
+                for(String str:CellSEIR.getParametersType())
+                    parameters.put(str,0.0);
+                for(String str:CellSEIR.getCellParametersType())
+                    cellParameters.put(str,0.0);
                 break;
             case SIS:
                 parameters.put("S",0.0);
@@ -291,15 +290,10 @@ public class MainController {
         iterationNumber+=1;
         iterationText.setText(String.valueOf(iterationNumber));
         board.iteration(iterationNumber);
-        System.out.println("Iteration number:"+iterationNumber);
+       // System.out.println("Iteration number:"+iterationNumber);
     }
 
-    private void initCharts(){
 
-    }
-    private void paintCharts(){
-        //TODO painting charts
-    }
     private void initUI() {
         parameters=new HashMap<>();
         cellParameters=new HashMap<>();
@@ -332,7 +326,7 @@ public class MainController {
         modelChooser.setValue(EpidemicModels.SIR);
         neighborhood.setItems(FXCollections.observableArrayList(Neighborhood.values()));
         neighborhood.setValue(Neighborhood.Moore);
-        sizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,4,2));
+        sizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,4,1));
 
 
     }
@@ -350,7 +344,7 @@ public class MainController {
         NumberAxis xAxis = new NumberAxis(1, iterationNumber, 1);
         xAxis.setLabel("Iteration");
         NumberAxis yAxis = new NumberAxis   (0, 10000, 50);
-        yAxis.setLabel("No. of individuals");
+        yAxis.setLabel("No. of cells");
         LineChart <Number, Number> chart=new LineChart<Number, Number>(xAxis,yAxis);
        // chart=new LineChart(xAxis,yAxis);
         XYChart.Series[] series=board.getDataForCharts();

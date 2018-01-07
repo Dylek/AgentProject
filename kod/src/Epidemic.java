@@ -9,7 +9,7 @@ public class Epidemic extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("CAapp.fxml"));
-        primaryStage.setTitle("Spread of epidemic");
+        primaryStage.setTitle("Spread of epidemic    Author: Marcin Jędrzejczyk");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class CellSEIR implements Cell {
 
-    //0-empty,1-S,2-I,3-R
+    //0-empty,1-S,2-E,3-I,4-R
     //0-empty space, like ocean, not inhabitated land
     private int type=0;
     private ArrayList<CellSEIR> neighboors=new ArrayList<CellSEIR>();
@@ -37,15 +37,7 @@ public class CellSEIR implements Cell {
 
     @Override
     public Paint getColor() {
-        switch (this.type){
-            case 0: return Color.GRAY;
-            case 1: return Color.BLACK;
-            case 2: return Color.GREEN;
-            case 3: return Color.RED;
-            case 4: return Color.BLUE;
-            case 5: return Color.YELLOW;
-        }
-        return Color.WHITE;
+        return BoardCA.getCellColor(this.type);
     }
 
     private double getBigSum(){
@@ -95,13 +87,14 @@ public class CellSEIR implements Cell {
 
             //TODO FACT CHECK IT
             //cell change type if one type of inhabitans has majory in population
-            if(infected>0.6){
+            //Because following eautaion should alwways stand: infected+exposed+suspectible+recovered=1
+            if(infected>0.51){
                 nextState=3;
-            }else if(exposed>0.6){
+            }else if(exposed>0.51){
                 nextState=2;
-            }else if(suspectible>0.6){
+            }else if(suspectible>0.51){
                 nextState=1;
-            }else if(recovered>0.6){
+            }else if(recovered>0.51){
                 nextState=4;
             }else{
                 nextState=this.type;
@@ -184,12 +177,8 @@ public class CellSEIR implements Cell {
     //set parameters local for a cell
     private void setParameters(HashMap<String, Double> par) {
         constantParameters.putAll(par);
-        if(par.get("movement factor")>1 || par.get("movement factor")<0){
-            constantParameters.put("movement factor",0.5);
-        }
-        if(par.get("connection factor")>1 || par.get("connection factor")<0){
-            constantParameters.put("connection factor",0.4);//TODO add snap to 0,0.4,0.6,1
-        }
+
+
         if(par.get("cell population")<1){
             cellPopulation=10;
         }else{
@@ -207,22 +196,20 @@ public class CellSEIR implements Cell {
         if(par.get("virulence of the epidemic")>1 || par.get("virulence of the epidemic")<0){
             constantParameters.put("virulence of the epidemic",0.0);
         }
-        if(par.get("vaccination rate")>1 || par.get("vaccination rate")<0){
-            constantParameters.put("vaccination rate",0.2);
-        }
+
         if(par.get("recovery rate")>1 || par.get("recovery rate")<0){
             constantParameters.put("recovery rate",0.3);
         }
         if(par.get("infected rate(from exposed)")>1 || par.get("infected rate(from exposed)")<0){
             constantParameters.put("infected rate(from exposed)",0.3);
         }
-        //double c=par.get("connection factor");//snap to
+
     }
 
     public static ArrayList<String> getParametersType(){
         ArrayList<String>par=new ArrayList<>();
         par.add("virulence of the epidemic");
-        par.add("vaccination rate");
+       // par.add("vaccination rate");
         par.add("infected rate(from exposed)");
         // par.add("connection factor");//snap //supose to be chosen for each cell
         //par.add("movement factor");//supose to be chosen for each cell
@@ -234,8 +221,8 @@ public class CellSEIR implements Cell {
     public static ArrayList<String> getCellParametersType() {
         ArrayList<String>par=new ArrayList<>();
         par.add("cell population");
-        par.add("connection factor");//snap //supose to be chosen for each cell
-        par.add("movement factor");//supose to be chosen for each cell
+    //    par.add("connection factor");//snap //supose to be chosen for each cell
+    //    par.add("movement factor");//supose to be chosen for each cell
         return par;
     }
 }

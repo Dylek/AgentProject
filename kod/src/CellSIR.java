@@ -35,15 +35,15 @@ public class CellSIR implements Cell {
 
     @Override
     public Paint getColor() {
-        switch (this.type){
-            case 0: return Color.GRAY;
-            case 1: return Color.BLACK;
-            case 2: return Color.GREEN;
-            case 3: return Color.RED;
-            case 4: return Color.BLUE;
-            case 5: return Color.YELLOW;
-        }
-        return Color.WHITE;
+//        switch (this.type){
+//            case 0: return Color.GRAY;
+//            case 1: return Color.BLACK;
+//            case 2: return Color.GREEN;
+//            case 3: return Color.RED;
+//            case 4: return Color.BLUE;
+//            case 5: return Color.YELLOW;
+//        }
+        return BoardCA.getCellColor(this.type);
     }
 
     private double getBigSum(){
@@ -67,7 +67,7 @@ public class CellSIR implements Cell {
     public void calculateNewState(){
         if(type!=0) {
             //callculate new state
-            //System.out.println("calculating new state");
+
             double suspectible = 0;
             double infected = 0;
             double recovered = 0;
@@ -167,11 +167,22 @@ public class CellSIR implements Cell {
     //set parameters local for a cell
     private void setParameters(HashMap<String, Double> par) {
         constantParameters.putAll(par);
+
+//        snap to 0,0.4,0.6,1
+        double[] snapV={0,0.3,0.6,1};
+        int ind=0;
+        double minD=Math.abs(par.get("connection factor")-snapV[0]);
+        for(int d=1;d<snapV.length;d++){
+            double c=Math.abs(par.get("connection factor")-snapV[d]);
+            if(c<minD){
+                ind=d;
+                minD=c;
+            }
+        }
+        constantParameters.put("connection factor",minD);
+
         if(par.get("movement factor")>1 || par.get("movement factor")<0){
             constantParameters.put("movement factor",0.5);
-        }
-        if(par.get("connection factor")>1 || par.get("connection factor")<0){
-            constantParameters.put("connection factor",0.4);//TODO add snap to 0,0.4,0.6,1
         }
         if(par.get("cell population")<1){
             cellPopulation=10;

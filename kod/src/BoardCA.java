@@ -2,6 +2,8 @@
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +85,7 @@ public class BoardCA {
 
 
     public void iteration(int iteration){
-        System.out.println("iteratrion new");
+        //System.out.println("iteratrion new");
         Double[] data=new Double[board[0][0].getNumberOfTypes()];
         for(int i=0;i<board[0][0].getNumberOfTypes();i++){
             data[i]=0.0;
@@ -144,6 +146,18 @@ public class BoardCA {
             CellSIR.setConstantParameters(par);
         }
 
+    }
+
+    public static Paint getCellColor(int type) {
+        switch (type){
+            case 0: return Color.GRAY;
+            case 1: return Color.BLACK;
+            case 2: return Color.GREEN;
+            case 3: return Color.RED;
+            case 4: return Color.BLUE;
+            case 5: return Color.YELLOW;
+        }
+        return Color.WHITE;
     }
 
     public XYChart.Series[] getDataForCharts(){
