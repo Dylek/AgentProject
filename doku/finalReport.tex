@@ -37,7 +37,7 @@
 \renewcommand{\figurename}{Figure}
 	\begin{center}
 			\begin{LARGE}
-			Spread of epidemic\\[1cm]
+			The Spread of epidemics\\[1cm]
 		    \end{LARGE}
 	    	\begin{Large}
 	    		Author: Marcin Jędrzejczyk \\
@@ -160,21 +160,21 @@ I^{t+1}_{i,j}=\left(1-\epsilon\right)\cdot I^{t}_{ij}+\sigma\cdot E^t_{ij}
 
 	
 
-\section{Project goals}
+%\section{Project goals}
 
-The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in lattice(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
+%The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in lattice(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present. 
 
 \section{Implemented models}
 \subsection{Neighbourhood}
 Cell can have Von Newman or Moore neighbourhood, it is possible to change it size (from 1 to 4).
-\begin{figure}[H]
-\includegraphics[scale=0.5]{moore.png} 
-\caption{Moore neighbourhood}
-\end{figure}
-\begin{figure}[H]
-\includegraphics[scale=0.5]{vonnewman.png} 
-\caption{VonNewman neighbourhood}
-\end{figure}
+%\begin{figure}[H]
+%\includegraphics[scale=0.5]{moore.png} 
+%\caption{Moore neighbourhood}
+%\end{figure}
+%\begin{figure}[H]
+%\includegraphics[scale=0.5]{vonnewman.png} 
+%\caption{VonNewman neighbourhood}
+%\end{figure}
 To not hardcode adding of neighbours to cell, following equations found in \cite{moore}\cite{vonnewman} were used:\\
 \begin{equation}
 	N^{M}_{x_0,y_0}=\{ \left(x,y\right): \mid x-x_0 \mid \leq r, \mid y-y_0 \mid \leq r   \}  
@@ -201,39 +201,39 @@ SIR model was implemented with transition equations proposed by\cite{WHITE}. It 
 \item each cell has small population of individuals
 \end{itemize}
 
-SEIR model was implemented with transition equation proposed by\cite{cisse}.\\
+\noindent SEIR model was implemented with transition equation proposed by\cite{cisse}.\\
 
-SIS model was implemented, by changing SIR model equations.\\
+\noindent SIS model was implemented, by changing SIR model equations.\\
 
 %dodać listing kodu calculateNew state dla każdej klasy implementującej cell
 
 
 \subsection{Code}
 Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of ifs and switches Factory pattern was used for creating Cell objects for chosen model.
-\begin{figure}[H]
-\includegraphics[width=\textwidth]{klasy.PNG} 
-\caption{Class diagram}
-\end{figure}
-\lstinputlisting{Cell.java}
+%\begin{figure}[H]
+%\includegraphics[width=\textwidth]{klasy.PNG} 
+%\caption{Class diagram}
+%\end{figure}
+%\lstinputlisting{Cell.java}
 
 
 For testing how code works and if program design is correct game of life was also implemented with not hard coded parameters.
 
-\subsection{Finished GUI}
+\subsection{GUI}
 The user interface was created with JavaFX and SceneBuilder.\\
-To start simulation:
-\begin{itemize}
-\item Choose model
-\item Choose neighbourhood type and size
-\item Set model parameters
-\item Click INIT button
-\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell and cell parameters, depends on chosen model)
-\item Change speed of simulation on slider(optional, default 1s)
-\item To start click START button
-\item To pause click STOP button(you can resume with START button)
-\item Use CLEAR button to terminate simulation and be able to set up a new one
+%To start simulation:
+%\begin{itemize}
+%\item Choose model
+%\item Choose neighbourhood type and size
+%\item Set model parameters
+%\item Click INIT button
+%\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell and cell parameters, depends on chosen model)
+%\item Change speed of simulation on slider(optional, default 1s)
+%\item To start click START button
+%\item To pause click STOP button(you can resume with START button)
+%\item Use CLEAR button to terminate simulation and be able to set up a new one
 
-\end{itemize}
+%\end{itemize}
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{guiinit.PNG} 
@@ -259,10 +259,17 @@ To start simulation:
 \fi
 \section{Summary}
 %TODO poprawki itp , lepsze entery wieksze przestrzenie
-Testing implementation of SIR model showed how great is impact of vaccination in preventing disease spreading. Also it possible to see quarantine, by useing empty spaces or cell of recovery type. One observer anomaly is when all cells have connection factor=1, instead of covering whole lattice with 1 type of cells program create symmetric symbols.\\
+%The aim of this project is to implement SIR model of epidemic spread in cellular automata with JAVA. Main programming reference will be code from laboratory classes where cellular automata was used. The UI will be created with JavaFX and SceneBuilder. If possible interface  will have may parameters to choose, like: vaccination value,  people spread in lattice(random,uniform, constant), epidemic model(SIR,SIS,SEIR,SEIRS), neighbourhood size and type, if not only simple parameters for one model will be present.
+
+The project main goal of implementing SIR model of the spreading of epidemics in Java was achieved. It was possible to also implement SEIR and SIS model. Testing program with game of life model proved that program design is acceptable.\\
+
+Testing implementation of SIR model showed how great is impact of vaccination in preventing disease spreading. Also it possible to see quarantine, by use of empty cells or cells of recovery type(R). The following anomaly is observed when all cells have connection factor=1: instead of covering whole lattice with only 1 type of cells, program create symmetric symbol.\\
+
 SEIR model is less precise when it comes to spreading disease from neighbours, because it only take into account Euclidean distance between cell and its neighbours and not like SIR model connection factor, movement factor and virulence of the epidemic.\\
+
 It is advised to check more published papers to find better mathematical model for SIS model.\\
-It is possible to add more models. Program was build with idea of adding new models without big problems. It is proven, because implementation of SEIR model took less time than SIR model, actually copy paste and adjust. What is more Adding more parameters should not be a problem, because program stores them in hashmaps.
+
+It is possible to add more models. Program was build with idea of addition of new models without big problems. It is proven, because implementation of SEIR model took less time than SIR model. What is more adding more parameters should not be a problem, because program stores them in hashmaps.
 %TODO wnioski
 %\bibliographystyle{plain}% plain/abbrv/alpha
 %\bibliography{mybib}

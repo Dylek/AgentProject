@@ -1,0 +1,208 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{report}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CS}{%
+         family={Chang},
+         familyi={C\bibinitperiod},
+         given={Sharon},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CS1}
+    \strng{fullhash}{CS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Cellular Automata Model for Epidemics}
+    \verb{url}
+    \verb http://csc.ucdavis.edu/~chaos/courses/nlp/Projects2008/SharonChang/Re
+    \verb port.pdf
+    \endverb
+    \field{year}{2008}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{shih}{article}{}
+    \name{author}{2}{}{%
+      {{hash=CFS}{%
+         family={Ching\bibnamedelima Fu},
+         familyi={C\bibinitperiod\bibinitdelim F\bibinitperiod},
+         given={Shih},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Milne},
+         familyi={M\bibinitperiod},
+         given={George},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CFSMG1}
+    \strng{fullhash}{CFSMG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{ACAL2003: The First Australian Conference on Artificial
+  Life; Canberra, Australia}
+    \field{title}{Epidemic Modelling Using Cellular Automata}
+    \field{month}{01}
+    \field{year}{2003}
+  \endentry
+
+  \entry{cisse}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CB}{%
+         family={Cissé},
+         familyi={C\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=YSE}{%
+         family={Yacoubi},
+         familyi={Y\bibinitperiod},
+         given={S.\bibnamedelima El},
+         giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=TA}{%
+         family={Tridane},
+         familyi={T\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{Cellular automata, Epidemics spreading, SEIR, Basic reproduction
+  number, Modified neighborhood}
+    \strng{namehash}{CBYSETA1}
+    \strng{fullhash}{CBYSETA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.procs.2013.05.450
+    \endverb
+    \field{issn}{1877-0509}
+    \field{note}{2013 International Conference on Computational Science}
+    \field{number}{Supplement C}
+    \field{pages}{2603 \bibrangedash  2606}
+    \field{title}{Impact of Neighborhood Structure on Epidemic Spreading by
+  Means of Cellular Automata Approach}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S1877050913005930
+    \endverb
+    \field{volume}{18}
+    \field{journaltitle}{Procedia Computer Science}
+    \field{year}{2013}
+  \endentry
+
+  \entry{moore}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WEW}{%
+         family={Weisstein},
+         familyi={W\bibinitperiod},
+         given={Eric\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WEW1}
+    \strng{fullhash}{WEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Moore Neighborhood}
+    \verb{url}
+    \verb http://mathworld.wolfram.com/MooreNeighborhood.html
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{vonnewman}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WEW}{%
+         family={Weisstein},
+         familyi={W\bibinitperiod},
+         given={Eric\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WEW1}
+    \strng{fullhash}{WEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{von Neumann Neighborhood}
+    \verb{url}
+    \verb http://mathworld.wolfram.com/vonNeumannNeighborhood.html
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{WHITE}{article}{}
+    \name{author}{3}{}{%
+      {{hash=WSH}{%
+         family={White},
+         familyi={W\bibinitperiod},
+         given={S.\bibnamedelima Hoya},
+         giveni={S\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=dRAM}{%
+         prefix={del},
+         prefixi={d\bibinitperiod},
+         family={Rey},
+         familyi={R\bibinitperiod},
+         given={A.\bibnamedelima Martín},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SGR}{%
+         family={Sánchez},
+         familyi={S\bibinitperiod},
+         given={G.\bibnamedelima Rodríguez},
+         giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \keyw{Cellular automata, Epidemic spreading, Mathematical modeling,
+  Rectangular lattices, SIR model}
+    \strng{namehash}{WSHRAMdSGR1}
+    \strng{fullhash}{WSHRAMdSGR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.amc.2006.06.126
+    \endverb
+    \field{issn}{0096-3003}
+    \field{number}{1}
+    \field{pages}{193 \bibrangedash  202}
+    \field{title}{Modeling epidemics using cellular automata}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0096300306009295
+    \endverb
+    \field{volume}{186}
+    \field{journaltitle}{Applied Mathematics and Computation}
+    \field{year}{2007}
+  \endentry
+\endsortlist
+\endinput
