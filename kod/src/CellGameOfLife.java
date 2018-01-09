@@ -1,6 +1,4 @@
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,15 +7,13 @@ public class CellGameOfLife implements Cell {
 
     private int type=0;
     private ArrayList<Cell> neighboors=new ArrayList<Cell>();
-
     private static HashMap<String,Double> parameters;
     private int nextState;
-   // private HashMap<String, Double> nextStateParameters;
+
 
 
     public CellGameOfLife(){
         parameters=new HashMap<>();
-      //  nextStateParameters=new HashMap<>();
         nextState=0;
         this.type=0;
     }
@@ -37,11 +33,8 @@ public class CellGameOfLife implements Cell {
 
     @Override
     public void calculateNewState(){
-        //callculate new state
 
         int al=getAliveN();
-
-
         // 23/3
         //"stay alive from" "stay alive to" /"become alive from" "become alive to"
 
@@ -52,7 +45,6 @@ public class CellGameOfLife implements Cell {
                 nextState=0;
             }
         }else{
-
             if(parameters.get("become alive from")<= al && al<=parameters.get("become alive to")){
                 nextState=1;
             }else{
@@ -63,18 +55,13 @@ public class CellGameOfLife implements Cell {
     }
     @Override
     public void changeState(){
-        //change state
-
         this.type=nextState;
-        //parameters.clear();
-        //parameters.putAll(nextStateParameters);
     }
 
     @Override
     public void clear(){
         this.type=0;
         parameters.clear();
-        //rest of parameters //hashmap?
     }
 
     @Override

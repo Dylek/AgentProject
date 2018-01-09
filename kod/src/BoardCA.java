@@ -136,14 +136,15 @@ public class BoardCA {
         System.out.println(par);
         if(model.equals(EpidemicModels.GAMEOFLIFE)){
             CellGameOfLife.setParameters(par);
-            //for(int x=0;x<board.length;x++){
-            //    for(int y=0;y<board.length;y++){
-           //         board[x][y].setParameters(par);
-          //      }
-          //  }
         }
         if(model.equals(EpidemicModels.SIR)){
             CellSIR.setConstantParameters(par);
+        }
+        if(model.equals(EpidemicModels.SEIR)){
+            CellSEIR.setConstantParameters(par);
+        }
+        if(model.equals(EpidemicModels.SIS)){
+            CellSIS.setConstantParameters(par);
         }
 
     }

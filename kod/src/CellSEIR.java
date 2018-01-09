@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CellSEIR implements Cell {
-
+    //0-empty,1-S,2-I,3-R,4-exposed
     //0-empty,1-S,2-E,3-I,4-R
     //0-empty space, like ocean, not inhabitated land
     private int x;
     private  int y;
     private int type=0;
     private ArrayList<CellSEIR> neighboors=new ArrayList<CellSEIR>();
+    private HashMap<CellSEIR,Integer[]> neighbourInfo=new HashMap<>();
     public int cellPopulation=100;//constant//cot the same for every cell
     //it holds parameters like specific of One cell
     private HashMap<String,Double> parameters;
@@ -34,7 +35,12 @@ public class CellSEIR implements Cell {
 
     @Override
     public void addNeigbour(Cell c) {
-        neighboors.add((CellSEIR)c);
+        CellSEIR temp=(CellSEIR)c;
+        if(!this.equals(temp)){
+        neighboors.add(temp);
+        Integer[] tem={temp.x-this.x,temp.y-this.y};
+        neighbourInfo.put(temp,tem);
+        }
     }
 
     @Override
@@ -46,18 +52,21 @@ public class CellSEIR implements Cell {
         double bigSum=0;
 
         for(CellSEIR cell: neighboors){
-            bigSum+=cell.cellPopulation/this.cellPopulation*cell.getMovementNumber() * cell.parameters.get("infected");
+            bigSum+=cell.cellPopulation/this.cellPopulation*cell.getMovementNumber(cell) * cell.parameters.get("infected");
         }
-        //this.cellPopulation/this.cellPopulation*cell.getMovementNumber() * cell.parameters.get("infected");
-        bigSum+=1*this.getMovementNumber() * this.parameters.get("infected");
+
         return bigSum;
     }
 
-    public double getMovementNumber(){
+    public double getMovementNumber(CellSEIR cell){
         double ni=0;
-        //TODO to jakoś śmiesznie liczone jest
-        //ni=constantParameters.get("connection factor")*constantParameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
-        //ni=this.parameters.get("connection factor")*this.parameters.get("movement factor")*constantParameters.get("virulence of the epidemic");
+        double smallSum=0;
+
+        for(CellSEIR neighboor: this.neighboors){
+            smallSum+=1/Math.sqrt(Math.pow(neighbourInfo.get(neighboor)[0],2)+Math.pow(neighbourInfo.get(neighboor)[1],2));
+        }
+
+        ni=(1/Math.sqrt(Math.pow(neighbourInfo.get(cell)[0],2)+Math.pow(neighbourInfo.get(cell)[1],2)))/smallSum;
 
         return ni;
     }
@@ -72,8 +81,7 @@ public class CellSEIR implements Cell {
             double recovered = 0;
             double exposed=0;
 
-
-
+            //TODO dokodzić przemieszczenmia
             suspectible = parameters.get("suspectible") +
                     -constantParameters.get("virulence of the epidemic") * parameters.get("suspectible") * parameters.get("infected") +
                     -constantParameters.get("virulence of the epidemic")*parameters.get("suspectible") * this.getBigSum();
@@ -84,23 +92,22 @@ public class CellSEIR implements Cell {
 
             infected=(1 - constantParameters.get("recovery rate")) * parameters.get("infected")+
             constantParameters.get("infected rate(from exposed)")*parameters.get("exposed");
-            recovered = parameters.get("recovered") +
-                    constantParameters.get("recovery rate") * parameters.get("infected");
+            recovered = parameters.get("recovered")+constantParameters.get("recovery rate") * parameters.get("infected");
 
 
-            //TODO FACT CHECK IT
+
             //cell change type if one type of inhabitans has majory in population
             //Because following eautaion should alwways stand: infected+exposed+suspectible+recovered=1
-            if(infected>0.51){
-                nextState=3;
-            }else if(exposed>0.51){
-                nextState=2;
-            }else if(suspectible>0.51){
-                nextState=1;
-            }else if(recovered>0.51){
-                nextState=4;
+            if(infected>exposed && infected>suspectible && infected>recovered){
+                nextState=2;//2-infected
+            }else if(exposed>infected && exposed>suspectible && exposed>recovered){
+                nextState=4;//4-exposed
+            }else if(suspectible> exposed && suspectible> infected && suspectible>recovered){
+                nextState=1;//1-suspectible
+            }else if(recovered>infected && recovered> exposed && recovered>suspectible){
+                nextState=3;//3-recovered
             }else{
-                nextState=this.type;
+                nextState=this.type;//no change
             }
 
             nextStateParameters.put("suspectible", suspectible);
@@ -147,19 +154,19 @@ public class CellSEIR implements Cell {
                 parameters.put("exposed",0.0);
                 parameters.put("recovered",0.0);
                 break;
-            case 2:
+            case 4:
                 parameters.put("infected",0.0);
                 parameters.put("suspectible",0.0);
                 parameters.put("exposed",1.0);
                 parameters.put("recovered",0.0);
                 break;
-            case 3:
+            case 2:
                 parameters.put("infected",1.0);
                 parameters.put("suspectible",0.0);
                 parameters.put("exposed",0.0);
                 parameters.put("recovered",0.0);
                 break;
-            case 4:
+            case 3:
                 parameters.put("infected",0.0);
                 parameters.put("suspectible",0.0);
                 parameters.put("exposed",0.0);

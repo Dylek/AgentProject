@@ -174,7 +174,7 @@ public class MainController {
         timeline.play();
     }
 
-    //TODO add parameters(correct) for each model
+
     private void setParameters(EpidemicModels model) {
         parameters.clear();
         cellParameters.clear();
@@ -196,8 +196,10 @@ public class MainController {
                     cellParameters.put(str,0.0);
                 break;
             case SIS:
-                parameters.put("S",0.0);
-                parameters.put("I",0.0);
+                for(String str:CellSIS.getParametersType())
+                    parameters.put(str,0.0);
+                for(String str:CellSIS.getCellParametersType())
+                    cellParameters.put(str,0.0);
                 break;
         }
         paintParameters(parametersSpace,parameters);
@@ -222,6 +224,7 @@ public class MainController {
         paintParameters(cellParametersSpace,cellParameters);
 
         System.out.println("Simulation initialised for model: "+modelChooser.getValue());
+        iterationText.setText("0");
         modelTextLabel.setText(modelChooser.getValue().toString());
     }
 
