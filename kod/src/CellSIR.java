@@ -199,7 +199,6 @@ public class CellSIR implements Cell {
         par.add("virulence of the epidemic");
         par.add("vaccination rate");
         par.add("recovery rate");
-
         return par;
     }
 
@@ -207,6 +206,7 @@ public class CellSIR implements Cell {
         ArrayList<String>par=new ArrayList<>();
         par.add("cell population");
         par.add("connection factor");//supose to be chosen for each cell
+        par.add("movement factor");
         return par;
     }
 }

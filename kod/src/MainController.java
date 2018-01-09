@@ -312,7 +312,7 @@ public class MainController {
         speedSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                System.out.println(speedSlider.getValue());
+                //System.out.println(speedSlider.getValue());
                 if(timeline!=null){
                     updateSimulationSpeed();
                 }

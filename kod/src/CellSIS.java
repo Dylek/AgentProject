@@ -185,7 +185,6 @@ public class CellSIS implements Cell {
     public static ArrayList<String> getParametersType(){
         ArrayList<String>par=new ArrayList<>();
         par.add("virulence of the epidemic");
-      //  par.add("vaccination rate");
         par.add("recovery rate");
         return par;
     }

@@ -80,7 +80,7 @@ public class BoardCA {
                 }
                 break;
         }
-        System.out.println("Neoghboorhood has been set");
+        System.out.println("Neighborhood has been set");
     }
 
 
@@ -133,7 +133,7 @@ public class BoardCA {
     }
 
     public void setParameters(HashMap<String,Double> par,EpidemicModels model){
-        System.out.println(par);
+        //System.out.println(par);
         if(model.equals(EpidemicModels.GAMEOFLIFE)){
             CellGameOfLife.setParameters(par);
         }

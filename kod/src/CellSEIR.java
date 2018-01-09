@@ -9,7 +9,7 @@ public class CellSEIR implements Cell {
     //0-empty,1-S,2-E,3-I,4-R
     //0-empty space, like ocean, not inhabitated land
     private int x;
-    private  int y;
+    private int y;
     private int type=0;
     private ArrayList<CellSEIR> neighboors=new ArrayList<CellSEIR>();
     private HashMap<CellSEIR,Integer[]> neighbourInfo=new HashMap<>();
@@ -26,6 +26,8 @@ public class CellSEIR implements Cell {
         nextStateParameters=new HashMap<>();
         constantParameters=new HashMap<>();
         //nextState=0;
+        this.x=x;
+        this.y=y;
         this.type=0;
         parameters.put("infected",0.0);
         parameters.put("suspectible",0.0);
@@ -36,11 +38,9 @@ public class CellSEIR implements Cell {
     @Override
     public void addNeigbour(Cell c) {
         CellSEIR temp=(CellSEIR)c;
-        if(!this.equals(temp)){
-        neighboors.add(temp);
+        neighboors.add((CellSEIR)c);
         Integer[] tem={temp.x-this.x,temp.y-this.y};
-        neighbourInfo.put(temp,tem);
-        }
+        neighbourInfo.put((CellSEIR)c,tem);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class CellSEIR implements Cell {
 
     private double getBigSum(){
         double bigSum=0;
-
-        for(CellSEIR cell: neighboors){
-            bigSum+=cell.cellPopulation/this.cellPopulation*cell.getMovementNumber(cell) * cell.parameters.get("infected");
+        //carefull
+        for(CellSEIR cell: this.neighboors){
+            bigSum+=cell.cellPopulation/this.cellPopulation*this.getMovementNumber(cell) * cell.parameters.get("infected");
         }
 
         return bigSum;
@@ -219,10 +219,7 @@ public class CellSEIR implements Cell {
     public static ArrayList<String> getParametersType(){
         ArrayList<String>par=new ArrayList<>();
         par.add("virulence of the epidemic");
-       // par.add("vaccination rate");
         par.add("infected rate(from exposed)");
-        // par.add("connection factor");//snap //supose to be chosen for each cell
-        //par.add("movement factor");//supose to be chosen for each cell
         par.add("recovery rate");
 
         return par;
@@ -231,8 +228,7 @@ public class CellSEIR implements Cell {
     public static ArrayList<String> getCellParametersType() {
         ArrayList<String>par=new ArrayList<>();
         par.add("cell population");
-    //    par.add("connection factor");//snap //supose to be chosen for each cell
-    //    par.add("movement factor");//supose to be chosen for each cell
+
         return par;
     }
 }
