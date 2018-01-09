@@ -213,7 +213,7 @@ public class MainController {
     }
     void startSim(){
         boardToPaint.setDisable(false);
-        board=new BoardCA(100,modelChooser.getValue());
+        board=new BoardCA(50,modelChooser.getValue());
         board.setParameters(parameters,modelChooser.getValue());
         board.setDrawingProperties(boardToPaint,cellSize,laneThickness);
 

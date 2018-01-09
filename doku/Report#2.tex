@@ -201,22 +201,24 @@ SIR model was implemented with transition equations proposed by\cite{WHITE}. It 
 \item each cell has small population of individuals
 \end{itemize}
 
+SEIR model was implemented with transition equation proposed by\cite{cisse}.\\
+
+SIS model was implemented, by changing SIR model equations.\\
+
 %dodać listing kodu calculateNew state dla każdej klasy implementującej cell
 
 
 \subsection{Code}
 Program was written in Java. Simulation is created, by use of Timeline class, which object is used to execute doIteration() function. To avoid writing a lot of ifs and switches Factory pattern was used for creating Cell objects for chosen model.
 \begin{figure}[H]
-\includegraphics[scale=0.7]{klasy.PNG} 
+\includegraphics[width=\textwidth]{klasy.PNG} 
 \caption{Class diagram}
 \end{figure}
 \lstinputlisting{Cell.java}
 
 
-For testing how code works and if program design is correct game of life was also implemented with not hard coded parameter.
+For testing how code works and if program design is correct game of life was also implemented with not hard coded parameters.
 
-
-%TODO które zaimplementowałem, może jakiś listning kodu
 \subsection{Finished GUI}
 The user interface was created with JavaFX and SceneBuilder.\\
 To start simulation:
@@ -225,7 +227,7 @@ To start simulation:
 \item Choose neighbourhood type and size
 \item Set model parameters
 \item Click INIT button
-\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell, depends on chosen model)
+\item Change cell types, by mouse clicking(or dragging) on lattice (it is possible to choose new type of cell and cell parameters, depends on chosen model)
 \item Change speed of simulation on slider(optional, default 1s)
 \item To start click START button
 \item To pause click STOP button(you can resume with START button)
@@ -234,14 +236,33 @@ To start simulation:
 \end{itemize}
 
 \begin{figure}[H]
-\includegraphics[scale=0.7]{GUI2.PNG} 
+\includegraphics[width=\textwidth]{guiinit.PNG} 
 \caption{GUI - program start}
 \end{figure}
+\iffalse
 \begin{figure}[H]
-\includegraphics[scale=0.7]{GUI3.PNG} 
-\caption{GUI - simulation initialized }
+\includegraphics[width=\textwidth]{i0.PNG} 
+\caption{GUI - simulation initialized(Iteration 0) }
 \end{figure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{i5.PNG} 
+\caption{GUI - Iteration 5}
+\end{figure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{i7.PNG} 
+\caption{GUI - Iteration 7}
+\end{figure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{i12.PNG} 
+\caption{GUI - Iteration 12}
+\end{figure}
+\fi
 \section{Summary}
+%TODO poprawki itp , lepsze entery wieksze przestrzenie
+Testing implementation of SIR model showed how great is impact of vaccination in preventing disease spreading. Also it possible to see quarantine, by useing empty spaces or cell of recovery type. One observer anomaly is when all cells have connection factor=1, instead of covering whole lattice with 1 type of cells program create symmetric symbols.\\
+SEIR model is less precise when it comes to spreading disease from neighbours, because it only take into account Euclidean distance between cell and its neighbours and not like SIR model connection factor, movement factor and virulence of the epidemic.\\
+It is advised to check more published papers to find better mathematical model for SIS model.\\
+It is possible to add more models. Program was build with idea of adding new models without big problems. It is proven, because implementation of SEIR model took less time than SIR model, actually copy paste and adjust. What is more Adding more parameters should not be a problem, because program stores them in hashmaps.
 %TODO wnioski
 %\bibliographystyle{plain}% plain/abbrv/alpha
 %\bibliography{mybib}

@@ -1,7 +1,4 @@
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface Cell {
@@ -11,6 +8,6 @@ public interface Cell {
     void changeState();
     void clear();
     int getType();
-    void setType(int i);
+    void setType(int i,HashMap<String,Double> par);
     int getNumberOfTypes();
 }
