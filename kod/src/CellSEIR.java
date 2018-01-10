@@ -81,7 +81,7 @@ public class CellSEIR implements Cell {
             double recovered = 0;
             double exposed=0;
 
-            //TODO dokodzić przemieszczenmia
+
             suspectible = parameters.get("suspectible") +
                     -constantParameters.get("virulence of the epidemic") * parameters.get("suspectible") * parameters.get("infected") +
                     -constantParameters.get("virulence of the epidemic")*parameters.get("suspectible") * this.getBigSum();
@@ -98,16 +98,18 @@ public class CellSEIR implements Cell {
 
             //cell change type if one type of inhabitans has majory in population
             //Because following eautaion should alwways stand: infected+exposed+suspectible+recovered=1
+            nextState=this.type;
             if(infected>exposed && infected>suspectible && infected>recovered){
                 nextState=2;//2-infected
-            }else if(exposed>infected && exposed>suspectible && exposed>recovered){
+            }
+            if(exposed>infected && exposed>suspectible && exposed>recovered){
                 nextState=4;//4-exposed
-            }else if(suspectible> exposed && suspectible> infected && suspectible>recovered){
+            }
+            if(suspectible> exposed && suspectible> infected && suspectible>recovered){
                 nextState=1;//1-suspectible
-            }else if(recovered>infected && recovered> exposed && recovered>suspectible){
+            }
+            if(recovered>infected && recovered> exposed && recovered>suspectible){
                 nextState=3;//3-recovered
-            }else{
-                nextState=this.type;//no change
             }
 
             nextStateParameters.put("suspectible", suspectible);

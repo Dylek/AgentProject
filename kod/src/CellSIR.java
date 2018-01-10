@@ -72,17 +72,15 @@ public class CellSIR implements Cell {
                     constantParameters.get("recovery rate") * parameters.get("infected") +
                     constantParameters.get("vaccination rate") * parameters.get("suspectible");
 
-
+            nextState=this.type;
             if (infected > suspectible && infected > recovered) {
                 nextState = 2;//infected
-            }else
+            }
             if (suspectible > infected && suspectible > recovered) {
                 nextState = 1;//suspectible
-            }else
+            }
             if (recovered > suspectible && recovered > infected) {
                 nextState = 3;//recovered
-            }else{
-                nextState=this.type;//no change
             }
             nextStateParameters.put("suspectible", suspectible);
             nextStateParameters.put("infected", infected);

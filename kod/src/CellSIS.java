@@ -59,7 +59,7 @@ public class CellSIS implements Cell {
             double infected = 0;
 
 
-            //TODO CHECK EQUATIONS
+
             infected = (1 - constantParameters.get("recovery rate")) * parameters.get("infected") +
                     +constantParameters.get("virulence of the epidemic") * parameters.get("suspectible") * parameters.get("infected") +
                     +parameters.get("suspectible") * this.getBigSum()
@@ -70,14 +70,12 @@ public class CellSIS implements Cell {
                     -parameters.get("suspectible") * this.getBigSum()
                     +constantParameters.get("recovery rate") * parameters.get("infected");
 
-
+            nextState=this.type;
             if (infected > suspectible) {
                 nextState = 2;//infected
-            }else
+            }
             if (suspectible > infected) {
                 nextState = 1;//suspectible
-            }else{
-                nextState=this.type;//no change
             }
 
             nextStateParameters.put("suspectible", suspectible);

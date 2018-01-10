@@ -346,7 +346,7 @@ public class MainController {
 
         NumberAxis xAxis = new NumberAxis(1, iterationNumber, 1);
         xAxis.setLabel("Iteration");
-        NumberAxis yAxis = new NumberAxis   (0, 10000, 50);
+        NumberAxis yAxis = new NumberAxis   (0, board.getSize()*board.getSize(), 50);
         yAxis.setLabel("No. of cells");
         LineChart <Number, Number> chart=new LineChart<Number, Number>(xAxis,yAxis);
        // chart=new LineChart(xAxis,yAxis);
